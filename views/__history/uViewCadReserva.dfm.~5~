@@ -1,0 +1,201 @@
+object cadReserva: TcadReserva
+  Left = 0
+  Top = 0
+  Caption = 'Cadastrro de Reservas'
+  ClientHeight = 477
+  ClientWidth = 793
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PageControl1: TPageControl
+    Left = 8
+    Top = 0
+    Width = 785
+    Height = 469
+    ActivePage = TabSheet2
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'Cadastrar'
+      object Label1: TLabel
+        Left = 360
+        Top = 24
+        Width = 243
+        Height = 32
+        Caption = 'Cadastro de Reservas'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 32
+        Top = 104
+        Width = 46
+        Height = 13
+        Caption = 'H'#243'spede'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label3: TLabel
+        Left = 32
+        Top = 150
+        Width = 36
+        Height = 13
+        Caption = 'Quarto'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object DBComboBox1: TDBComboBox
+        Left = 32
+        Top = 123
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object DBComboBox2: TDBComboBox
+        Left = 32
+        Top = 177
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 1
+      end
+      object Button1: TButton
+        Left = 558
+        Top = 400
+        Width = 139
+        Height = 41
+        Caption = 'Cadastrar'
+        TabOrder = 2
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Gerenciar'
+      ImageIndex = 1
+      object Label4: TLabel
+        Left = 80
+        Top = 59
+        Width = 73
+        Height = 13
+        Caption = 'Pesquisar por:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label5: TLabel
+        Left = 32
+        Top = 160
+        Width = 46
+        Height = 13
+        Caption = 'H'#243'spede'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 32
+        Top = 216
+        Width = 36
+        Height = 13
+        Caption = 'Quarto'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Edit1: TEdit
+        Left = 327
+        Top = 56
+        Width = 185
+        Height = 21
+        TabOrder = 0
+      end
+      object Button2: TButton
+        Left = 518
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Pesquisar'
+        TabOrder = 1
+      end
+      object Button3: TButton
+        Left = 599
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Alterar'
+        TabOrder = 2
+      end
+      object Button4: TButton
+        Left = 680
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Deletar'
+        TabOrder = 3
+      end
+      object ComboBox1: TComboBox
+        Left = 176
+        Top = 56
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 4
+        Items.Strings = (
+          'H'#243'spede'
+          'Quarto')
+      end
+      object DBGrid1: TDBGrid
+        Left = 327
+        Top = 160
+        Width = 447
+        Height = 278
+        TabOrder = 5
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object txtEditHospede: TEdit
+        Left = 32
+        Top = 179
+        Width = 121
+        Height = 21
+        TabOrder = 6
+      end
+      object txtEditQuarto: TEdit
+        Left = 32
+        Top = 235
+        Width = 121
+        Height = 21
+        TabOrder = 7
+      end
+    end
+  end
+end

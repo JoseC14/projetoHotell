@@ -1,0 +1,59 @@
+object ServicoDao: TServicoDao
+  OldCreateOrder = False
+  Height = 524
+  Width = 734
+  object sqlInserir: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'INSERT INTO tb_servicos (nome,preco) VALUES (:nome,:preco)')
+    Left = 256
+    Top = 160
+    ParamData = <
+      item
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PRECO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object sqlAlterar: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      
+        'UPDATE tb_servicos SET nome = :nome, preco = :preco WHERE id_ser' +
+        'vicos = :id')
+    Left = 320
+    Top = 160
+    ParamData = <
+      item
+        Name = 'NOME'
+        ParamType = ptInput
+      end
+      item
+        Name = 'PRECO'
+        ParamType = ptInput
+      end
+      item
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+  end
+  object sqlDeletar: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'DELETE FROM tb_servicos WHERE id_servicos = :id')
+    Left = 384
+    Top = 160
+    ParamData = <
+      item
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+  end
+end

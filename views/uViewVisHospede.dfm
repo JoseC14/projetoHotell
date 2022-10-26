@@ -1,0 +1,209 @@
+object Form4: TForm4
+  Left = 0
+  Top = 0
+  Caption = 'Visualizar H'#243'spede'
+  ClientHeight = 414
+  ClientWidth = 769
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 268
+    Top = 24
+    Width = 218
+    Height = 32
+    Caption = 'Visualizar H'#243'spede'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 32
+    Top = 104
+    Width = 46
+    Height = 13
+    Caption = 'H'#243'spede'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 32
+    Top = 160
+    Width = 19
+    Height = 13
+    Caption = 'CPF'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 208
+    Top = 160
+    Width = 26
+    Height = 13
+    Caption = 'Fone'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 368
+    Top = 160
+    Width = 19
+    Height = 13
+    Caption = 'CEP'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 32
+    Top = 216
+    Width = 24
+    Height = 13
+    Caption = 'Sexo'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label10: TLabel
+    Left = 253
+    Top = 216
+    Width = 74
+    Height = 13
+    Caption = 'Nacionalidade'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 31
+    Top = 272
+    Width = 47
+    Height = 13
+    Caption = 'Profiss'#227'o'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 32
+    Top = 328
+    Width = 29
+    Height = 13
+    Caption = 'Idade'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Edit2: TEdit
+    Left = 32
+    Top = 123
+    Width = 369
+    Height = 21
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object MaskEdit1: TMaskEdit
+    Left = 32
+    Top = 179
+    Width = 114
+    Height = 21
+    EditMask = '###.###.###-##;1;_'
+    MaxLength = 14
+    ReadOnly = True
+    TabOrder = 1
+    Text = '   .   .   -  '
+  end
+  object MaskEdit3: TMaskEdit
+    Left = 208
+    Top = 179
+    Width = 113
+    Height = 21
+    EditMask = '(##)#####-####;1;_'
+    MaxLength = 14
+    ReadOnly = True
+    TabOrder = 2
+    Text = '(  )     -    '
+  end
+  object MaskEdit2: TMaskEdit
+    Left = 368
+    Top = 179
+    Width = 118
+    Height = 21
+    EditMask = '#####-###;1;_'
+    MaxLength = 9
+    ReadOnly = True
+    TabOrder = 3
+    Text = '     -   '
+  end
+  object Edit4: TEdit
+    Left = 253
+    Top = 235
+    Width = 377
+    Height = 21
+    ReadOnly = True
+    TabOrder = 4
+  end
+  object Edit3: TEdit
+    Left = 32
+    Top = 291
+    Width = 233
+    Height = 21
+    ReadOnly = True
+    TabOrder = 5
+  end
+  object SpinEdit1: TSpinEdit
+    Left = 32
+    Top = 347
+    Width = 57
+    Height = 22
+    MaxValue = 0
+    MinValue = 0
+    ReadOnly = True
+    TabOrder = 6
+    Value = 0
+  end
+  object Edit1: TEdit
+    Left = 32
+    Top = 235
+    Width = 161
+    Height = 21
+    ReadOnly = True
+    TabOrder = 7
+  end
+end

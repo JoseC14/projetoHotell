@@ -1,0 +1,87 @@
+object cadReserva: TcadReserva
+  Left = 0
+  Top = 0
+  Caption = 'Cadastrro de Reservas'
+  ClientHeight = 477
+  ClientWidth = 793
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 360
+    Top = 24
+    Width = 243
+    Height = 32
+    Caption = 'Cadastro de Reservas'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 32
+    Top = 104
+    Width = 46
+    Height = 13
+    Caption = 'H'#243'spede'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 32
+    Top = 150
+    Width = 36
+    Height = 13
+    Caption = 'Quarto'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object DBComboBox1: TDBComboBox
+    Left = 32
+    Top = 123
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 0
+  end
+  object DBComboBox2: TDBComboBox
+    Left = 32
+    Top = 177
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 646
+    Top = 416
+    Width = 139
+    Height = 41
+    Caption = 'Cadastrar'
+    TabOrder = 2
+  end
+  object Button2: TButton
+    Left = 479
+    Top = 416
+    Width = 139
+    Height = 41
+    Caption = 'Gerenciar'
+    TabOrder = 3
+  end
+end

@@ -1,0 +1,25 @@
+object QuartoDao: TQuartoDao
+  OldCreateOrder = False
+  Height = 430
+  Width = 747
+  object sqlInserir: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'INSERT INTO tb_produto (numero,tipo) VALUES (:numero,:tipo)')
+    Left = 256
+    Top = 144
+    ParamData = <
+      item
+        Name = 'NUMERO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TIPO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+end

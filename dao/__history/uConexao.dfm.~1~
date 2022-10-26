@@ -1,0 +1,45 @@
+object DataModule1: TDataModule1
+  OldCreateOrder = False
+  Height = 498
+  Width = 704
+  object FDConexao: TFDConnection
+    ConnectionName = 'Conexao'
+    Params.Strings = (
+      'User_Name=root'
+      'Password=1234'
+      'Database=db_syshotel'
+      'Server=localhost'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 280
+    Top = 200
+  end
+  object tbreserva: TFDTable
+    Connection = FDConexao
+    TableName = 'db_syshotel.tb_reserva'
+    Left = 392
+    Top = 216
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 208
+    Top = 296
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    Left = 352
+    Top = 352
+  end
+  object dsreserva: TDataSource
+    DataSet = tbreserva
+    Left = 344
+    Top = 288
+  end
+  object cdsreserva: TClientDataSet
+    Aggregates = <>
+    MasterSource = dsreserva
+    PacketRecords = 0
+    Params = <>
+    Left = 432
+    Top = 288
+  end
+end

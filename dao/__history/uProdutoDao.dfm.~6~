@@ -1,0 +1,40 @@
+object ProdutoDao: TProdutoDao
+  OldCreateOrder = False
+  Height = 410
+  Width = 734
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 208
+    Top = 272
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    Left = 264
+    Top = 272
+  end
+  object sqlInserir: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'INSERT INTO tb_produto VALUES (:nome,:preco,:quantidade)')
+    Left = 208
+    Top = 120
+    ParamData = <
+      item
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PRECO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'QUANTIDADE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+end

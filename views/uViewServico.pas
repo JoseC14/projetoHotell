@@ -1,0 +1,135 @@
+unit uViewServico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls, uConexao, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uServicoDao;
+
+type
+  TServico = class(TForm)
+    PageControl2: TPageControl;
+    TabSheet1: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    btnCadastrar: TButton;
+    txtPreco: TMaskEdit;
+    txtNome: TEdit;
+    TabSheet2: TTabSheet;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    txtPesquisa: TEdit;
+    btnPesquisar: TButton;
+    comPesquisa: TComboBox;
+    tbservico: TDBGrid;
+    btnDeletar: TButton;
+    btnAlterar: TButton;
+    txtEditNome: TEdit;
+    txtEditPreco: TMaskEdit;
+    Tb_servicosTable: TFDQuery;
+    dsServico: TDataSource;
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure tbservicoCellClick(Column: TColumn);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnDeletarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+
+  end;
+
+var
+  Servico: TServico;
+  ServicoDao:TServicoDao;
+
+implementation
+
+{$R *.dfm}
+
+procedure TServico.btnAlterarClick(Sender: TObject);
+begin
+  ServicoDao := TServicoDao.Create(Self);
+
+  try
+    ServicoDao.alterarServico(txtEditNome.Text,txtEditPreco.Text,tbservico.Fields[0].Value);
+    ShowMessage('Serviço Alterado');
+    tbservico.DataSource.DataSet.Refresh;
+  except on E:Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
+end;
+
+procedure TServico.btnCadastrarClick(Sender: TObject);
+begin
+  ServicoDao := TServicoDao.Create(Self);
+  try
+    ServicoDao.inserirServico(txtNome.Text,txtPreco.Text);
+    ShowMessage('Serviço Cadastrado');
+    tbservico.DataSource.DataSet.Refresh;
+    ServicoDao.Free;
+  except on E:Exception do
+  begin
+    ShowMessage(E.Message);
+  end;
+
+
+  end;
+end;
+
+procedure TServico.btnDeletarClick(Sender: TObject);
+begin
+
+  if Application.MessageBox('Deseja Realmente Deletar?','Atenção!', MB_OK+MB_OKCANCEL)=1 then
+  begin
+    ServicoDao := TServicoDao.Create(Self);
+    ServicoDao.deletarServico(tbservico.Fields[0].Value);
+    tbservico.DataSource.DataSet.Refresh;
+    ServicoDao.Free;
+  end;
+
+
+
+
+
+
+
+end;
+
+procedure TServico.btnPesquisarClick(Sender: TObject);
+begin
+  if comPesquisa.Text = 'Nome' then
+  begin
+     Tb_servicosTable.Close;
+     Tb_servicosTable.sql.Clear;
+     Tb_servicosTable.sql.Add('SELECT * FROM tb_servicos WHERE nome LIKE ''%'+txtPesquisa.Text+'%''');
+     Tb_servicosTable.Open;
+  end
+  else if comPesquisa.Text = 'Preço' then
+  begin
+     Tb_servicosTable.Close;
+     Tb_servicosTable.sql.Clear;
+     Tb_servicosTable.sql.Add('SELECT * FROM tb_servicos WHERE preco LIKE ''%'+txtPesquisa.Text+'%''');
+     Tb_servicosTable.Open;
+  end;
+end;
+
+procedure TServico.tbservicoCellClick(Column: TColumn);
+begin
+  txtEditNome.Text  := tbservico.Fields[1].AsString;
+  txtEditPreco.Text := tbservico.Fields[2].AsString;
+end;
+
+end.

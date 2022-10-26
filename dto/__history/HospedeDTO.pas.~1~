@@ -1,0 +1,18 @@
+unit HospedeDTO;
+
+interface
+ type
+   THospede = class
+      FNome: String;
+      FCpf: String;
+      FCep: String;
+      FFone: String;
+      FSexo: String;
+      FNacionalidade: String;
+      FProfissao: String;
+      FIdade:Integer
+
+   end;
+implementation
+
+end.

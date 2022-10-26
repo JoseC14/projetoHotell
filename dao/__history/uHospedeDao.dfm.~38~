@@ -1,0 +1,242 @@
+object HospedeDAO: THospedeDAO
+  OldCreateOrder = False
+  Height = 511
+  Width = 846
+  object sqlInserir: TFDQuery
+    ConstraintsEnabled = True
+    MasterFields = 'nome;cpf;sexo;profissao;idade;cep;fone;nacionalidade'
+    ConnectionName = 'ConexaoHotel'
+    SQL.Strings = (
+      
+        'INSERT INTO tb_hospede (nome,cpf,sexo,profissao,idade,cep,fone,n' +
+        'acionalidade) VALUES (:nome,:cpf,:sexo,:profissao,:idade,:cep,:f' +
+        'one,:nacionalidade)')
+    Left = 296
+    Top = 120
+    ParamData = <
+      item
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PROFISSAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'IDADE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CEP'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'FONE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NACIONALIDADE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object sqlAlterar: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      
+        'UPDATE  tb_hospede SET nome=:nome,cpf=:cpf,sexo=:sexo,profissao=' +
+        ':profissao,idade=:idade,cep=:cep,fone=:fone,nacionalidade=:nacio' +
+        'nalidade WHERE id_hospede=:idhospede ')
+    Left = 360
+    Top = 120
+    ParamData = <
+      item
+        Name = 'NOME'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'SEXO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'PROFISSAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'IDADE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CEP'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'FONE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NACIONALIDADE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'IDHOSPEDE'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 208
+    Top = 232
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorHome = 'C:\Users\josec\OneDrive\Documentos\livrariamysql'
+    VendorLib = 'libmysql.dll'
+    Left = 208
+    Top = 296
+  end
+  object sqlDeletar: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'DELETE FROM tb_hospede WHERE id_hospede=:id')
+    Left = 416
+    Top = 120
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+  object tbhospede: TFDTable
+    Active = True
+    IndexFieldNames = 'id_hospede'
+    Connection = DataModule1.FDConexao
+    TableName = 'db_syshotel.tb_hospede'
+    Left = 296
+    Top = 184
+    object tbhospedeid_hospede: TFDAutoIncField
+      FieldName = 'id_hospede'
+      Origin = 'id_hospede'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tbhospedenome: TStringField
+      FieldName = 'nome'
+      Origin = 'nome'
+      Required = True
+      Size = 255
+    end
+    object tbhospedecpf: TStringField
+      FieldName = 'cpf'
+      Origin = 'cpf'
+      Required = True
+      Size = 14
+    end
+    object tbhospedesexo: TStringField
+      FieldName = 'sexo'
+      Origin = 'sexo'
+      Required = True
+      FixedChar = True
+      Size = 9
+    end
+    object tbhospedeprofissao: TStringField
+      FieldName = 'profissao'
+      Origin = 'profissao'
+      Required = True
+      Size = 255
+    end
+    object tbhospedeidade: TIntegerField
+      FieldName = 'idade'
+      Origin = 'idade'
+      Required = True
+    end
+    object tbhospedecep: TStringField
+      FieldName = 'cep'
+      Origin = 'cep'
+      Required = True
+    end
+    object tbhospedefone: TStringField
+      FieldName = 'fone'
+      Origin = 'fone'
+      Required = True
+      Size = 30
+    end
+    object tbhospedenacionalidade: TStringField
+      FieldName = 'nacionalidade'
+      Origin = 'nacionalidade'
+      Required = True
+      Size = 100
+    end
+    object tbhospedeativo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'ativo'
+      Origin = 'ativo'
+      FixedChar = True
+      Size = 1
+    end
+    object tbhospedeid_reserva: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'id_reserva'
+      Origin = 'id_reserva'
+    end
+  end
+  object dshospede: TDataSource
+    DataSet = tbhospede
+    Left = 368
+    Top = 184
+  end
+  object cdshospede: TClientDataSet
+    Aggregates = <>
+    MasterSource = dshospede
+    PacketRecords = 0
+    Params = <>
+    Left = 440
+    Top = 184
+  end
+end

@@ -1,0 +1,110 @@
+unit uViewServico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, Vcl.ComCtrls, uConexao, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, uServicoDao;
+
+type
+  TServico = class(TForm)
+    PageControl2: TPageControl;
+    TabSheet1: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    btnCadastrar: TButton;
+    txtPreco: TMaskEdit;
+    txtNome: TEdit;
+    TabSheet2: TTabSheet;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Edit1: TEdit;
+    btnPesquisar: TButton;
+    comPesquisa: TComboBox;
+    tbservico: TDBGrid;
+    btnDeletar: TButton;
+    btnAlterar: TButton;
+    txtEditNome: TEdit;
+    txtEditPreco: TMaskEdit;
+    Tb_servicosTable: TFDQuery;
+    dsServico: TDataSource;
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure tbservicoCellClick(Column: TColumn);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnDeletarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+
+  end;
+
+var
+  Servico: TServico;
+  ServicoDao:TServicoDao;
+
+implementation
+
+{$R *.dfm}
+
+procedure TServico.btnAlterarClick(Sender: TObject);
+begin
+  ServicoDao := TServicoDao.Create(Self);
+
+  try
+    ServicoDao.alterarServico(txtEditNome.Text,txtEditPreco.Text,tbservico.Fields[0].Value);
+    ShowMessage('Serviço Alterado');
+    tbservico.DataSource.DataSet.Refresh;
+  except on E:Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
+end;
+
+procedure TServico.btnCadastrarClick(Sender: TObject);
+begin
+  ServicoDao := TServicoDao.Create(Self);
+  try
+    ServicoDao.inserirServico(txtNome.Text,txtPreco.Text);
+    ShowMessage('Serviço Cadastrado');
+    tbservico.DataSource.DataSet.Refresh;
+    ServicoDao.Free;
+  except on E:Exception do
+  begin
+    ShowMessage(E.Message);
+  end;
+
+
+  end;
+end;
+
+procedure TServico.btnDeletarClick(Sender: TObject);
+begin
+  try
+  ServicoDao := TServicoDao.Create(Self);
+  ServicoDao.deletarServico(tbservico.Fields[0].Value);
+  except on E:Exception do
+  begin
+    ShowMessage(E.Message);
+  end;
+
+  end;
+end;
+
+procedure TServico.tbservicoCellClick(Column: TColumn);
+begin
+  txtEditNome.Text  := tbservico.Fields[1].AsString;
+  txtEditPreco.Text := tbservico.Fields[2].AsString;
+end;
+
+end.

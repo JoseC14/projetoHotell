@@ -1,0 +1,24 @@
+object DataModule2: TDataModule2
+  OldCreateOrder = False
+  Height = 430
+  Width = 747
+  object sqlInserir: TFDQuery
+    SQL.Strings = (
+      'INSERT INTO tb_produto VALUES (:numero,:tipo)')
+    Left = 256
+    Top = 144
+    ParamData = <
+      item
+        Name = 'NUMERO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'TIPO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+end
