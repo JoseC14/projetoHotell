@@ -1,0 +1,937 @@
+﻿object Hospede: THospede
+  Left = 0
+  Top = 0
+  Caption = 'H'#243'spede'
+  ClientHeight = 477
+  ClientWidth = 1050
+  Color = clGradientActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgHospede: TPageControl
+    Left = -7
+    Top = -4
+    Width = 1049
+    Height = 481
+    ActivePage = TabSheet1
+    TabOrder = 0
+    object telacadastro: TTabSheet
+      Caption = 'Cadastrar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      object CadastroHospedes: TLabel
+        Left = 360
+        Top = 24
+        Width = 254
+        Height = 32
+        Caption = 'Cadastro de H'#243'spedes'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Nome: TLabel
+        Left = 32
+        Top = 104
+        Width = 30
+        Height = 13
+        Caption = 'Nome'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object CPF: TLabel
+        Left = 32
+        Top = 160
+        Width = 19
+        Height = 13
+        Caption = 'CPF'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Sexo: TLabel
+        Left = 32
+        Top = 216
+        Width = 24
+        Height = 13
+        Caption = 'Sexo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Profissão: TLabel
+        Left = 31
+        Top = 272
+        Width = 47
+        Height = 13
+        Caption = 'Profiss'#227'o'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Idade: TLabel
+        Left = 32
+        Top = 328
+        Width = 29
+        Height = 13
+        Caption = 'Idade'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object CEP: TLabel
+        Left = 368
+        Top = 160
+        Width = 19
+        Height = 13
+        Caption = 'CEP'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Fone: TLabel
+        Left = 208
+        Top = 160
+        Width = 26
+        Height = 13
+        Caption = 'Fone'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Nacionalidade: TLabel
+        Left = 253
+        Top = 216
+        Width = 74
+        Height = 13
+        Caption = 'Nacionalidade'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object btnCadastrar: TButton
+        Left = 558
+        Top = 400
+        Width = 139
+        Height = 41
+        Caption = 'Cadastrar'
+        TabOrder = 0
+        OnClick = btnCadastrarClick
+      end
+      object txtNome: TEdit
+        Left = 32
+        Top = 123
+        Width = 377
+        Height = 21
+        TabOrder = 1
+      end
+      object txtCpf: TMaskEdit
+        Left = 32
+        Top = 179
+        Width = 120
+        Height = 21
+        EditMask = '###.###.###-##;1;_'
+        MaxLength = 14
+        TabOrder = 2
+        Text = '   .   .   -  '
+      end
+      object comSexo: TComboBox
+        Left = 32
+        Top = 235
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 3
+        Items.Strings = (
+          'Masculino'
+          'Feminino')
+      end
+      object txtProfissao: TEdit
+        Left = 32
+        Top = 291
+        Width = 233
+        Height = 21
+        TabOrder = 4
+      end
+      object intIdade: TSpinEdit
+        Left = 32
+        Top = 347
+        Width = 57
+        Height = 22
+        MaxValue = 0
+        MinValue = 0
+        TabOrder = 5
+        Value = 0
+      end
+      object txtCep: TMaskEdit
+        Left = 368
+        Top = 179
+        Width = 118
+        Height = 21
+        EditMask = '#####-###;1;_'
+        MaxLength = 9
+        TabOrder = 6
+        Text = '     -   '
+      end
+      object txtFone: TMaskEdit
+        Left = 208
+        Top = 179
+        Width = 115
+        Height = 21
+        EditMask = '(##)#####-####;1;_'
+        MaxLength = 14
+        TabOrder = 7
+        Text = '(  )     -    '
+      end
+      object comNacionalidade: TComboBox
+        Left = 253
+        Top = 235
+        Width = 233
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 8
+        Items.Strings = (
+          'Ant'#237'gua e Barbuda - Antiguano'
+          'Argentina - Argentino'
+          'Bahamas - Bahamense'
+          'Barbados - Barbadiano, barbadense'
+          'Belize - Belizenho'
+          'Bol'#237'via - Boliviano'
+          'Brasil - Brasileiro'
+          'Chile - Chileno'
+          'Col'#244'mbia - Colombiano'
+          'Costa Rica - Costarriquenho'
+          'Cuba - Cubano'
+          'Dominica - Dominicano'
+          'Equador - Equatoriano'
+          'El Salvador - Salvadorenho'
+          'Granada - Granadino'
+          'Guatemala - Guatemalteco'
+          'Guiana - Guian'#234's'
+          'Guiana Francesa - Guianense'
+          'Haiti - Haitiano'
+          'Honduras - Hondurenho'
+          'Jamaica - Jamaicano'
+          'M'#233'xico - Mexicano'
+          'Nicar'#225'gua - Nicaraguense'
+          'Panam'#225' - Panamenho'
+          'Paraguai - Paraguaio'
+          'Peru - Peruano'
+          'Porto Rico - Portorriquenho'
+          'Rep'#250'blica Dominicana - Dominicana'
+          'S'#227'o Crist'#243'v'#227'o e Nevis - S'#227'o-cristovense'
+          'S'#227'o Vicente e Granadinas - S'#227'o-vicentino'
+          'Santa L'#250'cia - Santa-lucense'
+          'Suriname - Surinam'#234's'
+          'Trinidad e Tobago - Trindadense'
+          'Uruguai - Uruguaio'
+          'Venezuela - Venezuelano'
+          'Alemanha - Alem'#227'o'
+          #193'ustria - Austr'#237'aco'
+          'B'#233'lgica - Belga'
+          'Cro'#225'cia - Croata'
+          'Dinamarca - Dinamarqu'#234's'
+          'Eslov'#225'quia - Eslovaco'
+          'Eslov'#234'nia - Esloveno'
+          'Espanha - Espanhol'
+          'Fran'#231'a - Franc'#234's'
+          'Gr'#233'cia - Grego'
+          'Hungria - H'#250'ngaro'
+          'Irlanda - Irland'#234's'
+          'It'#225'lia - Italiano'
+          'Noruega - Noruego'
+          'Pa'#237'ses Baixos - Holand'#234's'
+          'Pol'#244'nia - Polon'#234's'
+          'Portugal - Portugu'#234's'
+          'Reino Unido - Brit'#226'nico'
+          'Inglaterra - Ingl'#234's'
+          'Pa'#237's de Gales - Gal'#234's'
+          'Esc'#243'cia - Escoc'#234's'
+          'Rom'#234'nia - Romeno'
+          'R'#250'ssia - Russo'
+          'S'#233'rvio - S'#233'rvio'
+          'Su'#233'cia - Sueco'
+          'Su'#237#231'a - Su'#237#231'o'
+          'Turquia - Turco'
+          'Ucr'#226'nia - Ucraniano'
+          'Estados Unidos - Americano'
+          'Canad'#225' - Canadense'
+          'Angola - Angolano'
+          'Mo'#231'ambique - Mo'#231'ambicano'
+          #193'frica do Sul - Sul-africano'
+          'Zimbabue - Zimbabuense'
+          'Arg'#233'lia - Arg'#233'lia'
+          'Comores - Comorense'
+          'Egito - Eg'#237'pcio'
+          'L'#237'bia - L'#237'bio'
+          'Marrocos - Marroquino'
+          'Gana - Gan'#233's'
+          'Qu'#234'nia - Queniano'
+          'Ruanda - Ruand'#234's'
+          'Uganda - Ugandense'
+          'Botsuana - Bechuano'
+          'Costa do Marfim - Marfinense'
+          'Camar'#245'es - Camaronense'
+          'Nig'#233'ria - Nigeriano'
+          'Som'#225'lia - Somali'
+          'Austr'#225'lia - Australiano'
+          'Nova Zel'#226'ndia - Neozeland'#234's'
+          'Afeganist'#227'o - Afeg'#227'o'
+          'Ar'#225'bia Saudita - Saudita'
+          'Arm'#234'nia - Armeno'
+          'Armeno - Bangladesh'
+          'China - Chin'#234's'
+          'Cor'#233'ia do Norte - Norte-coreano, coreano'
+          'Cor'#233'ia do Sul - Sul-coreano, coreano'
+          #205'ndia - Indiano'
+          'Indon'#233'sia - Indon'#233'sio'
+          'Iraque - Iraquiano'
+          'Ir'#227' - Iraniano'
+          'Israel - Israelita'
+          'Jap'#227'o - Japon'#234's'
+          'Mal'#225'sia - Malaio'
+          'Nepal - Nepal'#234's'
+          'Om'#227' - Omanense'
+          'Paquist'#227'o - Paquistan'#234's'
+          'Palestina - Palestino'
+          'Qatar - Qatarense'
+          'S'#237'ria - S'#237'rio'
+          'Sri Lanka - Cingal'#234's'
+          'Tail'#226'ndia - Tailand'#234's'
+          'Timor-Leste - Timorense, maubere'
+          'Emirados '#193'rabes Unidos - '#193'rabe, emiratense'
+          'Vietn'#227' - Vietnamita'
+          'I'#234'men - Iemenita')
+      end
+    end
+    object telagerenciar: TTabSheet
+      Caption = 'Gerenciar'
+      ImageIndex = 1
+      object Label4: TLabel
+        Left = 80
+        Top = 59
+        Width = 73
+        Height = 13
+        Caption = 'Pesquisar por:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object GerenciamentoHospede: TLabel
+        Left = 202
+        Top = 3
+        Width = 327
+        Height = 32
+        Caption = 'Gerenciamento de H'#243'spedes'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object NomeEdit: TLabel
+        Left = 794
+        Top = 77
+        Width = 30
+        Height = 13
+        Caption = 'Nome'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object CPFEdit: TLabel
+        Left = 794
+        Top = 125
+        Width = 19
+        Height = 13
+        Caption = 'CPF'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object FoneEdit: TLabel
+        Left = 794
+        Top = 173
+        Width = 26
+        Height = 13
+        Caption = 'Fone'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object CEPEdit: TLabel
+        Left = 794
+        Top = 224
+        Width = 19
+        Height = 13
+        Caption = 'CEP'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object SexoEdit: TLabel
+        Left = 794
+        Top = 269
+        Width = 24
+        Height = 13
+        Caption = 'Sexo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object nacionalidadeEdit: TLabel
+        Left = 793
+        Top = 315
+        Width = 74
+        Height = 13
+        Caption = 'Nacionalidade'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object ProfissaoEdit: TLabel
+        Left = 792
+        Top = 359
+        Width = 47
+        Height = 13
+        Caption = 'Profiss'#227'o'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object IdadeEdit: TLabel
+        Left = 794
+        Top = 409
+        Width = 29
+        Height = 13
+        Caption = 'Idade'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object comPesquisa: TComboBox
+        Left = 176
+        Top = 56
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 0
+        Items.Strings = (
+          'Nome'
+          'CPF'
+          'CEP'
+          'Idade'
+          'Nacionalidade'
+          'Fone'
+          'Sexo'
+          'Profiss'#227'o')
+      end
+      object tbhospede: TDBGrid
+        Left = 8
+        Top = 96
+        Width = 785
+        Height = 342
+        DataSource = dshospede
+        FixedColor = clCream
+        Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnCellClick = tbhospedeCellClick
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'id_hospede'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'nome'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cpf'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'sexo'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'profissao'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'idade'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'cep'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'fone'
+            Width = 97
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'nacionalidade'
+            Width = 97
+            Visible = True
+          end>
+      end
+      object btnDeletar: TButton
+        Left = 687
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Deletar'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        OnClick = btnDeletarClick
+      end
+      object btnAlterar: TButton
+        Left = 606
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Alterar'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 3
+        OnClick = btnAlterarClick
+      end
+      object txtEditNome: TEdit
+        Left = 794
+        Top = 96
+        Width = 244
+        Height = 21
+        TabOrder = 4
+      end
+      object txtEditCpf: TMaskEdit
+        Left = 794
+        Top = 144
+        Width = 120
+        Height = 21
+        EditMask = '###.###.###-##;1;_'
+        MaxLength = 14
+        TabOrder = 5
+        Text = '   .   .   -  '
+      end
+      object txtEditFone: TMaskEdit
+        Left = 794
+        Top = 192
+        Width = 115
+        Height = 21
+        EditMask = '(##)#####-####;1;_'
+        MaxLength = 14
+        TabOrder = 6
+        Text = '(  )     -    '
+      end
+      object txtEditCep: TMaskEdit
+        Left = 794
+        Top = 243
+        Width = 118
+        Height = 21
+        EditMask = '#####-###;1;_'
+        MaxLength = 9
+        TabOrder = 7
+        Text = '     -   '
+      end
+      object txtEditNacionalidade: TEdit
+        Left = 793
+        Top = 334
+        Width = 245
+        Height = 21
+        TabOrder = 8
+      end
+      object txtEditProfissao: TEdit
+        Left = 793
+        Top = 378
+        Width = 233
+        Height = 21
+        TabOrder = 9
+      end
+      object comEditSexo: TComboBox
+        Left = 794
+        Top = 288
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 10
+        Items.Strings = (
+          'Masculino'
+          'Feminino')
+      end
+      object txtEditIdade: TEdit
+        Left = 794
+        Top = 429
+        Width = 145
+        Height = 21
+        TabOrder = 11
+      end
+      object btnPesquisar: TButton
+        Left = 525
+        Top = 54
+        Width = 75
+        Height = 25
+        Caption = 'Pesquisar'
+        TabOrder = 12
+        OnClick = btnPesquisarClick
+      end
+      object txtPesquisa: TMaskEdit
+        Left = 335
+        Top = 56
+        Width = 184
+        Height = 21
+        TabOrder = 13
+        Text = ''
+      end
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Relat'#243'rios'
+      ImageIndex = 2
+      ExplicitLeft = 8
+      ExplicitTop = 28
+      object Label1: TLabel
+        Left = 0
+        Top = 0
+        Width = 1041
+        Height = 32
+        Align = alTop
+        Alignment = taCenter
+        Caption = 'Relat'#243'rios'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+        ExplicitLeft = 210
+        ExplicitTop = 11
+        ExplicitWidth = 115
+      end
+      object Label2: TLabel
+        Left = 56
+        Top = 72
+        Width = 17
+        Height = 13
+        Caption = 'De:'
+      end
+      object Label3: TLabel
+        Left = 224
+        Top = 72
+        Width = 17
+        Height = 13
+        Caption = 'At'#233
+      end
+      object Label5: TLabel
+        Left = 414
+        Top = 50
+        Width = 24
+        Height = 13
+        Caption = 'Sexo'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label6: TLabel
+        Left = 765
+        Top = 50
+        Width = 74
+        Height = 13
+        Caption = 'Nacionalidade'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
+      object MaskEdit1: TMaskEdit
+        Left = 79
+        Top = 69
+        Width = 120
+        Height = 21
+        EditMask = '##/##/####;1;_'
+        MaxLength = 10
+        TabOrder = 0
+        Text = '  /  /    '
+      end
+      object MaskEdit2: TMaskEdit
+        Left = 247
+        Top = 69
+        Width = 120
+        Height = 21
+        EditMask = '##/##/####;1;_'
+        MaxLength = 10
+        TabOrder = 1
+        Text = '  /  /    '
+      end
+      object RadioGroup1: TRadioGroup
+        Left = 600
+        Top = 50
+        Width = 143
+        Height = 65
+        Caption = 'Ativo'
+        Items.Strings = (
+          'Sim'
+          'N'#227'o')
+        TabOrder = 2
+      end
+      object ComboBox2: TComboBox
+        Left = 414
+        Top = 69
+        Width = 145
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 3
+        Items.Strings = (
+          'Masculino'
+          'Feminino'
+          'Todos')
+      end
+      object ComboBox1: TComboBox
+        Left = 765
+        Top = 69
+        Width = 233
+        Height = 21
+        Style = csDropDownList
+        TabOrder = 4
+        Items.Strings = (
+          'Ant'#237'gua e Barbuda - Antiguano'
+          'Argentina - Argentino'
+          'Bahamas - Bahamense'
+          'Barbados - Barbadiano, barbadense'
+          'Belize - Belizenho'
+          'Bol'#237'via - Boliviano'
+          'Brasil - Brasileiro'
+          'Chile - Chileno'
+          'Col'#244'mbia - Colombiano'
+          'Costa Rica - Costarriquenho'
+          'Cuba - Cubano'
+          'Dominica - Dominicano'
+          'Equador - Equatoriano'
+          'El Salvador - Salvadorenho'
+          'Granada - Granadino'
+          'Guatemala - Guatemalteco'
+          'Guiana - Guian'#234's'
+          'Guiana Francesa - Guianense'
+          'Haiti - Haitiano'
+          'Honduras - Hondurenho'
+          'Jamaica - Jamaicano'
+          'M'#233'xico - Mexicano'
+          'Nicar'#225'gua - Nicaraguense'
+          'Panam'#225' - Panamenho'
+          'Paraguai - Paraguaio'
+          'Peru - Peruano'
+          'Porto Rico - Portorriquenho'
+          'Rep'#250'blica Dominicana - Dominicana'
+          'S'#227'o Crist'#243'v'#227'o e Nevis - S'#227'o-cristovense'
+          'S'#227'o Vicente e Granadinas - S'#227'o-vicentino'
+          'Santa L'#250'cia - Santa-lucense'
+          'Suriname - Surinam'#234's'
+          'Trinidad e Tobago - Trindadense'
+          'Uruguai - Uruguaio'
+          'Venezuela - Venezuelano'
+          'Alemanha - Alem'#227'o'
+          #193'ustria - Austr'#237'aco'
+          'B'#233'lgica - Belga'
+          'Cro'#225'cia - Croata'
+          'Dinamarca - Dinamarqu'#234's'
+          'Eslov'#225'quia - Eslovaco'
+          'Eslov'#234'nia - Esloveno'
+          'Espanha - Espanhol'
+          'Fran'#231'a - Franc'#234's'
+          'Gr'#233'cia - Grego'
+          'Hungria - H'#250'ngaro'
+          'Irlanda - Irland'#234's'
+          'It'#225'lia - Italiano'
+          'Noruega - Noruego'
+          'Pa'#237'ses Baixos - Holand'#234's'
+          'Pol'#244'nia - Polon'#234's'
+          'Portugal - Portugu'#234's'
+          'Reino Unido - Brit'#226'nico'
+          'Inglaterra - Ingl'#234's'
+          'Pa'#237's de Gales - Gal'#234's'
+          'Esc'#243'cia - Escoc'#234's'
+          'Rom'#234'nia - Romeno'
+          'R'#250'ssia - Russo'
+          'S'#233'rvio - S'#233'rvio'
+          'Su'#233'cia - Sueco'
+          'Su'#237#231'a - Su'#237#231'o'
+          'Turquia - Turco'
+          'Ucr'#226'nia - Ucraniano'
+          'Estados Unidos - Americano'
+          'Canad'#225' - Canadense'
+          'Angola - Angolano'
+          'Mo'#231'ambique - Mo'#231'ambicano'
+          #193'frica do Sul - Sul-africano'
+          'Zimbabue - Zimbabuense'
+          'Arg'#233'lia - Arg'#233'lia'
+          'Comores - Comorense'
+          'Egito - Eg'#237'pcio'
+          'L'#237'bia - L'#237'bio'
+          'Marrocos - Marroquino'
+          'Gana - Gan'#233's'
+          'Qu'#234'nia - Queniano'
+          'Ruanda - Ruand'#234's'
+          'Uganda - Ugandense'
+          'Botsuana - Bechuano'
+          'Costa do Marfim - Marfinense'
+          'Camar'#245'es - Camaronense'
+          'Nig'#233'ria - Nigeriano'
+          'Som'#225'lia - Somali'
+          'Austr'#225'lia - Australiano'
+          'Nova Zel'#226'ndia - Neozeland'#234's'
+          'Afeganist'#227'o - Afeg'#227'o'
+          'Ar'#225'bia Saudita - Saudita'
+          'Arm'#234'nia - Armeno'
+          'Armeno - Bangladesh'
+          'China - Chin'#234's'
+          'Cor'#233'ia do Norte - Norte-coreano, coreano'
+          'Cor'#233'ia do Sul - Sul-coreano, coreano'
+          #205'ndia - Indiano'
+          'Indon'#233'sia - Indon'#233'sio'
+          'Iraque - Iraquiano'
+          'Ir'#227' - Iraniano'
+          'Israel - Israelita'
+          'Jap'#227'o - Japon'#234's'
+          'Mal'#225'sia - Malaio'
+          'Nepal - Nepal'#234's'
+          'Om'#227' - Omanense'
+          'Paquist'#227'o - Paquistan'#234's'
+          'Palestina - Palestino'
+          'Qatar - Qatarense'
+          'S'#237'ria - S'#237'rio'
+          'Sri Lanka - Cingal'#234's'
+          'Tail'#226'ndia - Tailand'#234's'
+          'Timor-Leste - Timorense, maubere'
+          'Emirados '#193'rabes Unidos - '#193'rabe, emiratense'
+          'Vietn'#227' - Vietnamita'
+          'I'#234'men - Iemenita')
+      end
+      object Button1: TButton
+        Left = 720
+        Top = 384
+        Width = 219
+        Height = 49
+        Caption = 'Gerar Relatorio'
+        TabOrder = 5
+      end
+    end
+  end
+  object Tb_hospedeTable: TFDQuery
+    Active = True
+    ConnectionName = 'ConexaoHotel'
+    SQL.Strings = (
+      'SELECT * FROM db_syshotel.tb_hospede')
+    Left = 60
+    Top = 15
+  end
+  object dshospede: TDataSource
+    DataSet = Tb_hospedeTable
+    Top = 16
+  end
+  object cdshospede: TClientDataSet
+    Aggregates = <>
+    MasterSource = dshospede
+    PacketRecords = 0
+    Params = <>
+    Left = 32
+    Top = 16
+  end
+end

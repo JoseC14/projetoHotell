@@ -1,0 +1,37 @@
+unit uViewHospedeFinal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus;
+
+type
+  TForm3 = class(TForm)
+    MainMenu1: TMainMenu;
+    Cada1: TMenuItem;
+    Gerenciar1: TMenuItem;
+    telainterna: TPanel;
+    procedure Cada1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+{$R *.dfm}
+
+uses uViewCadHospede;
+
+procedure TForm3.Cada1Click(Sender: TObject);
+begin
+  CadastroHospede.Parent := telainterna;
+  CadastroHospede.Align  := AlClient;
+end;
+
+end.

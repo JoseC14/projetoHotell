@@ -1,0 +1,130 @@
+﻿object Form2: TForm2
+  Left = 0
+  Top = 0
+  Align = alClient
+  Caption = 'Sistema de Hotel'
+  ClientHeight = 578
+  ClientWidth = 1370
+  Color = 1776411
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 72
+    Width = 185
+    Height = 569
+    TabOrder = 0
+    object Reserva: TPanel
+      Left = 0
+      Top = 0
+      Width = 185
+      Height = 81
+      Caption = 'Reservas'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = ReservaClick
+    end
+    object Hospede: TPanel
+      Left = 0
+      Top = 80
+      Width = 185
+      Height = 81
+      Caption = 'H'#243'spedes'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = HospedeClick
+    end
+    object Produtos: TPanel
+      Left = 0
+      Top = 160
+      Width = 185
+      Height = 81
+      Caption = 'Produtos'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = ProdutosClick
+    end
+    object Servicos: TPanel
+      Left = 0
+      Top = 244
+      Width = 185
+      Height = 81
+      Caption = 'Servi'#231'os'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = ServicosClick
+    end
+    object Funcionários: TPanel
+      Left = 0
+      Top = 331
+      Width = 185
+      Height = 81
+      Caption = 'Funcion'#225'rios'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = FuncionáriosClick
+    end
+    object Panel3: TPanel
+      Left = 0
+      Top = 411
+      Width = 185
+      Height = 86
+      Caption = 'Logout'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 5
+      OnClick = FuncionáriosClick
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 8
+    Width = 1369
+    Height = 58
+    Color = 16724758
+    ParentBackground = False
+    TabOrder = 1
+  end
+  object telainterna: TPanel
+    Left = 184
+    Top = 72
+    Width = 1185
+    Height = 505
+    TabOrder = 2
+  end
+end

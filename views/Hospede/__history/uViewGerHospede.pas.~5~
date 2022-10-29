@@ -1,0 +1,68 @@
+unit uViewGerHospede;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.DBClient;
+
+type
+  TfrmGerHospede = class(TForm)
+    txtEditNome: TEdit;
+    txtEditIdade: TEdit;
+    IdadeEdit: TLabel;
+    txtEditProfissao: TEdit;
+    ProfissaoEdit: TLabel;
+    txtEditNacionalidade: TEdit;
+    nacionalidadeEdit: TLabel;
+    comEditSexo: TComboBox;
+    SexoEdit: TLabel;
+    txtEditCep: TMaskEdit;
+    CEPEdit: TLabel;
+    txtEditFone: TMaskEdit;
+    FoneEdit: TLabel;
+    txtEditCpf: TMaskEdit;
+    CPFEdit: TLabel;
+    NomeEdit: TLabel;
+    btnDeletar: TButton;
+    btnAlterar: TButton;
+    btnPesquisar: TButton;
+    txtPesquisa: TMaskEdit;
+    GerenciamentoHospede: TLabel;
+    comPesquisa: TComboBox;
+    Label4: TLabel;
+    tbhospede: TDBGrid;
+    cdshospede: TClientDataSet;
+    Tb_hospedeTable: TFDQuery;
+    dshospede: TDataSource;
+    procedure tbhospedeCellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGerHospede: TfrmGerHospede;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmGerHospede.tbhospedeCellClick(Column: TColumn);
+begin
+   txtEditNome.Text          := tbhospede.Fields[1].Value;
+   txtEditCpf.Text           := tbhospede.Fields[2].Value;
+   txtEditFone.Text          := tbhospede.Fields[7].Value;
+   txtEditCep.Text           := tbhospede.Fields[6].Value;
+   comEditSexo.Text          := tbhospede.Fields[3].Value;
+   txtEditNacionalidade.Text := tbhospede.Fields[8].Value;
+   txtEditProfissao.Text     := tbhospede.Fields[4].Value;
+   txtEditIdade.Text         := tbhospede.Fields[5].Value;
+end;
+
+end.

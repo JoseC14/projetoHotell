@@ -60,8 +60,6 @@ implementation
 
 {$R *.dfm}
 
-uses uViewProdutoFinal;
-
 procedure TProduto.Button1Click(Sender: TObject);
 begin
 ProdutoDao:=TProdutoDao.Create(Self);

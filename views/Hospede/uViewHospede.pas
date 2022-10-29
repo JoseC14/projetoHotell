@@ -1,0 +1,366 @@
+unit uViewHospede;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Mask, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Samples.Spin, uHospedeDao,
+  HospedeDTO, uConexao, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.DBClient, Vcl.ExtCtrls, Vcl.Menus;
+
+type
+  THospede = class(TForm)
+    pgHospede: TPageControl;
+    telacadastro: TTabSheet;
+    telagerenciar: TTabSheet;
+    Label4: TLabel;
+    comPesquisa: TComboBox;
+    tbhospede: TDBGrid;
+    btnDeletar: TButton;
+    btnAlterar: TButton;
+    GerenciamentoHospede: TLabel;
+    txtEditNome: TEdit;
+    NomeEdit: TLabel;
+    txtEditCpf: TMaskEdit;
+    CPFEdit: TLabel;
+    txtEditFone: TMaskEdit;
+    FoneEdit: TLabel;
+    txtEditCep: TMaskEdit;
+    CEPEdit: TLabel;
+    SexoEdit: TLabel;
+    txtEditNacionalidade: TEdit;
+    nacionalidadeEdit: TLabel;
+    txtEditProfissao: TEdit;
+    ProfissaoEdit: TLabel;
+    IdadeEdit: TLabel;
+    comEditSexo: TComboBox;
+    txtEditIdade: TEdit;
+    btnPesquisar: TButton;
+    Tb_hospedeTable: TFDQuery;
+    dshospede: TDataSource;
+    cdshospede: TClientDataSet;
+    txtPesquisa: TMaskEdit;
+    TabSheet1: TTabSheet;
+    Label1: TLabel;
+    Label2: TLabel;
+    dtInicio: TMaskEdit;
+    Label3: TLabel;
+    dtFim: TMaskEdit;
+    rgAtivo: TRadioGroup;
+    Label5: TLabel;
+    comRelSexo: TComboBox;
+    btnRelatorio: TButton;
+    CadastroHospedes: TLabel;
+    txtNome: TEdit;
+    Nome: TLabel;
+    txtCpf: TMaskEdit;
+    CPF: TLabel;
+    txtFone: TMaskEdit;
+    Fone: TLabel;
+    txtCep: TMaskEdit;
+    CEP: TLabel;
+    comSexo: TComboBox;
+    Sexo: TLabel;
+    txtNacionalidade: TEdit;
+    Nacionalidade: TLabel;
+    txtProfissao: TEdit;
+    Profissão: TLabel;
+    intIdade: TSpinEdit;
+    Idade: TLabel;
+    btnCadastrar: TButton;
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure tbhospedeCellClick(Column: TColumn);
+    procedure btnDeletarClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnRelatorioClick(Sender: TObject);
+
+
+  private
+    { Private declarations }
+
+    idDelete:Integer;
+  public
+    { Public declarations }
+  end;
+
+var
+  Hoje : TDateTime;
+  Hospede: THospede;
+  HospedeDaoObj:THospedeDAO;
+  HospedeDtoObj:THospedeDTO;
+
+
+
+implementation
+
+{$R *.dfm}
+
+uses hospederelatorio;
+
+procedure THospede.btnAlterarClick(Sender: TObject);
+begin
+HospedeDao:=THospedeDAO.Create(Self);
+try
+  HospedeDao.alterarHospede(txtEditNome.Text,txtEditCpf.Text,comEditSexo.Text,txtEditProfissao.Text,StrtoInt(txtEditIdade.Text),txtEditCep.Text,txtEditFone.Text,txtEditNacionalidade.Text,tbhospede.Fields[0].Value)  ;
+  tbhospede.DataSource.DataSet.Refresh;
+  except on E:Exception do
+begin
+  ShowMessage(E.Message);
+end;
+  end;
+  HospedeDao.Free;
+end;
+
+
+procedure THospede.btnCadastrarClick(Sender: TObject);
+begin
+HospedeDaoObj               := THospedeDAO.Create(HospedeDAO);
+HospedeDtoObj               := THospedeDTO.Create;
+HospedeDtoObj.Nome          := txtNome.Text;
+HospedeDtoObj.Cpf           := txtCpf.Text;
+HospedeDtoObj.Cep           := txtCep.Text;
+HospedeDtoObj.Fone          := txtFone.Text;
+HospedeDtoObj.Sexo          := comSexo.Text;
+HospedeDtoObj.Nacionalidade := txtNacionalidade.Text;
+HospedeDtoObj.Profissao     := txtProfissao.Text;
+HospedeDtoObj.Idade         := StrtoInt(intIdade.Text);
+
+try
+
+  Hoje := Now;
+  HospedeDao.InserirHospede(HospedeDtoObj.Nome,HospedeDtoObj.Cpf,HospedeDtoObj.Sexo,HospedeDtoObj.Profissao,HospedeDtoObj.Idade,HospedeDtoObj.Cep,HospedeDtoObj.Fone,HospedeDtoObj.Nacionalidade, DatetoStr(Hoje));
+  txtNome.Text      := '';
+  txtCpf.Text       := '';
+  txtCep.Text       := '';
+  txtFone.Text      := '';
+  txtProfissao.Text := '';
+
+  ShowMessage('Hóspede Cadastrado');
+  tbhospede.DataSource.DataSet.Refresh;
+  HospedeDtoObj.Free;
+  HospedeDaoObj.Free;
+except on E:Exception do
+begin
+ShowMessage(E.Message);
+end;
+
+
+end;
+end;
+
+procedure THospede.btnDeletarClick(Sender: TObject);
+begin
+  HospedeDao:=THospedeDao.Create(Self);
+
+  if  Application.MessageBox('Deseja Realmente Deletar?','Atenção!', MB_OK+MB_OKCANCEL)=1 then
+  begin
+    HospedeDao.deletarHospede(IdDelete);
+    HospedeDao.Free;
+  end;
+
+
+
+
+  tbhospede.DataSource.DataSet.Refresh;
+end;
+
+
+procedure THospede.btnPesquisarClick(Sender: TObject);
+begin
+  HospedeDao:=THospedeDAO.Create(Self);
+
+
+
+if comPesquisa.Text='Nome' then
+begin
+with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'nome LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+
+else if comPesquisa.Text='CPF' then
+begin
+
+
+  with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'cpf LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='CEP' then
+begin
+  with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'cep LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Idade' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'idade LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Nacionalidade' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'nacionalidade LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Fone' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'fone LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Sexo' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'sexo LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+ else if comPesquisa.Text='Profissão' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'profissao LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end;
+   tbhospede.DataSource.DataSet.Refresh;
+
+end;
+
+
+
+procedure THospede.btnRelatorioClick(Sender: TObject);
+begin
+
+if   (comRelSexo.ItemIndex = 2) AND (rgAtivo.ItemIndex = 2)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim ');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if (comRelSexo.ItemIndex = 0) AND (rgAtivo.ItemIndex = 2)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim AND sexo = ''Masculino''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if (comRelSexo.ItemIndex = 1) AND (rgAtivo.ItemIndex = 2)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim AND sexo = ''Feminino''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if   (comRelSexo.ItemIndex = 0) AND (rgAtivo.ItemIndex = 0)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim  AND sexo = ''Masculino'' AND ativo = ''S''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if   (comRelSexo.ItemIndex = 1) AND (rgAtivo.ItemIndex = 0)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim AND sexo = ''feminino'' AND ativo = ''S''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if   (comRelSexo.ItemIndex = 2) AND (rgAtivo.ItemIndex = 0)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim  AND ativo = ''S''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if   (comRelSexo.ItemIndex = 0) AND (rgAtivo.ItemIndex = 1)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim  AND sexo = ''Feminino'' AND ativo = ''N''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end
+else if   (comRelSexo.ItemIndex = 1) AND (rgAtivo.ItemIndex = 1)  then
+begin
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.sql.Clear;
+  Tb_hospedeTable.sql.Add('SELECT * FROM tb_hospede WHERE datacadastro BETWEEN :inicio AND :fim  AND sexo = ''Feminino'' AND ativo = ''N''');
+  Tb_hospedeTable.Params[0].AsString := dtInicio.Text;
+  Tb_hospedeTable.Params[1].AsString := dtFim.Text;
+
+end ;
+
+
+
+
+
+
+  Tb_hospedeTable.Open;
+  hospederelatorio.RelatorioHospede.Relatorio.Preview;
+end;
+
+procedure THospede.tbhospedeCellClick(Column: TColumn);
+begin
+  IdDelete                  := tbhospede.Fields[0].Value;
+  txtEditNome.Text          := tbhospede.Fields[1].Value;
+  txtEditCpf.Text           := tbhospede.Fields[2].Value;
+  txtEditFone.Text          := tbhospede.Fields[7].Value;
+  txtEditCep.Text           := tbhospede.Fields[6].Value;
+  comEditSexo.Text          := tbhospede.Fields[3].Value;
+  txtEditNacionalidade.Text := tbhospede.Fields[8].Value;
+  txtEditProfissao.Text     := tbhospede.Fields[4].Value;
+  txtEditIdade.Text         := tbhospede.Fields[5].Value;
+
+end;
+
+end.

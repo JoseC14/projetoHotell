@@ -1,0 +1,37 @@
+unit uViewProdutoFinal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls;
+
+type
+  TForm3 = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastrat1: TMenuItem;
+    Gerenciar1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Panel1: TPanel;
+    procedure Cadastrat1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form3: TForm3;
+
+implementation
+
+{$R *.dfm}
+
+uses uViewCadProduto;
+
+procedure TForm3.Cadastrat1Click(Sender: TObject);
+begin
+  uViewCadProduto.frmCadProduto.Parent :=
+end;
+
+end.

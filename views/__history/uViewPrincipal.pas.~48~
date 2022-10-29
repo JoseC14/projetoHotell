@@ -42,7 +42,7 @@ implementation
 
 {$R *.dfm}
 
-uses uViewServico, uViewFuncionario, uViewHospedeFinal, uViewProdutoFinal;
+uses uViewServico, uViewFuncionario;
 
 procedure TForm2.btnProdutosClick(Sender: TObject);
 begin
@@ -96,12 +96,12 @@ end;
 
 procedure TForm2.SpeedButton1Click(Sender: TObject);
 begin
-  uViewHospedeFinal.frmHospede.ShowModal;
+  uViewHospede.Hospede.ShowModal;
 end;
 
 procedure TForm2.btnProdutoClick(Sender: TObject);
 begin
-  UViewProdutoFinal.frmProduto.Show;
+  UViewProduto.Produto.ShowModal;
 end;
 
 end.
