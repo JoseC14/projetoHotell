@@ -1,4 +1,4 @@
-object Form10: TForm10
+object AdcServico: TAdcServico
   Left = 0
   Top = 0
   Caption = 'Adicionar Servi'#231'o'

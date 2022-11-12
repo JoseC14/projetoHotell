@@ -36,7 +36,6 @@ type
     Label9: TLabel;
     Label10: TLabel;
     Edit4: TEdit;
-    Button5: TButton;
     Edit5: TEdit;
     Label11: TLabel;
     Label12: TLabel;

@@ -1,0 +1,50 @@
+unit uFuncionarioDao;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+
+type
+  TFuncionarioDao = class(TDataModule)
+    sqlInserir: TFDQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  procedure inserirFuncionario(dataadmissao, cpf, nome, genero, datanasc, user, senha, gerente :String);
+  end;
+
+var
+  FuncionarioDao: TFuncionarioDao;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses uConexao;
+
+{$R *.dfm}
+
+{ TDataModule2 }
+
+
+{ TFuncionarioDao }
+
+procedure TFuncionarioDao.inserirFuncionario(dataadmissao, cpf, nome, genero,
+  datanasc, user, senha, gerente: String);
+begin
+  sqlInserir.Params[0] := dataadmissao;
+  sqlInserir.Params[1] := cpf;
+  sqlInserir.Params[2] := nome;
+  sqlInserir.Params[3] := genero;
+  sqlInserir.Params[4] := datanasc;
+  sqlInserir.Params[5] := user;
+  sqlInserir.Params[6] := senha;
+  sqlInserir.Params[6] := gerente;
+end;
+
+end.

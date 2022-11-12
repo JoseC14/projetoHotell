@@ -159,7 +159,7 @@ object Quarto: TQuarto
         TabOrder = 0
       end
       object Pesquisar: TButton
-        Left = 518
+        Left = 528
         Top = 54
         Width = 75
         Height = 25
@@ -216,7 +216,7 @@ object Quarto: TQuarto
           end>
       end
       object Deletar: TButton
-        Left = 680
+        Left = 696
         Top = 54
         Width = 75
         Height = 25
@@ -231,7 +231,7 @@ object Quarto: TQuarto
         OnClick = DeletarClick
       end
       object Alterar: TButton
-        Left = 599
+        Left = 612
         Top = 54
         Width = 75
         Height = 25

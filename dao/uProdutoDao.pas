@@ -12,8 +12,6 @@ uses
 
 type
   TProdutoDao = class(TDataModule)
-    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
-    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
     sqlInserir: TFDQuery;
     sqlAlterar: TFDQuery;
     sqlDeletar: TFDQuery;

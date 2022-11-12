@@ -1,0 +1,65 @@
+object FuncionarioDao: TFuncionarioDao
+  OldCreateOrder = False
+  Height = 405
+  Width = 616
+  object sqlInserir: TFDQuery
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      
+        'INSERT INTO tb_funcionario(data_admissao, cpf, nome_funcionario,' +
+        ' genero, data_nascimento, nome_user, senha_user, gerente) VALUES' +
+        ' (:data_admissao, :cpf, :nome_funcionario, :genero, :data_nascim' +
+        'ento, :nome_user, :senha_user, :gerente)')
+    Left = 264
+    Top = 200
+    ParamData = <
+      item
+        Name = 'DATA_ADMISSAO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'CPF'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NOME_FUNCIONARIO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'GENERO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'DATA_NASCIMENTO'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'NOME_USER'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'SENHA_USER'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'GERENTE'
+        DataType = ftString
+        ParamType = ptInput
+        Value = Null
+      end>
+  end
+end

@@ -1,0 +1,77 @@
+unit uViewLogin;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+ Vcl.Buttons, BusinessSkinForm, uConexao;
+
+type
+  TfrmPrincipal = class(TForm)
+    Label1: TLabel;
+    txtUser: TEdit;
+    txtSenha: TEdit;
+    Label2: TLabel;
+    btnLogin: TButton;
+    procedure btnHospedeClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure btnProdutoClick(Sender: TObject);
+    procedure btnServicoClick(Sender: TObject);
+    procedure btnFuncionariosClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal : TfrmPrincipal;
+  uConexao     : TConexao;
+
+
+implementation
+
+{$R *.dfm}
+
+uses  uViewHospedeFinal, uViewProdutoFinal,
+  uViewServicoFinal, uViewQuartoFinal, uViewFuncionarioFinal;
+
+procedure TfrmPrincipal.btnFuncionariosClick(Sender: TObject);
+begin
+  uViewFuncionarioFinal.frmFuncionarioFinal.Show;
+end;
+
+procedure TfrmPrincipal.btnHospedeClick(Sender: TObject);
+begin
+  uViewHospedeFinal.frmHospede.ShowModal;
+end;
+
+procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
+begin
+   Conexao := TConexao.Create(Self);
+
+   if Conexao.Login(txtUser.Text,txtSenha.Text) then
+   begin
+
+   end;
+
+end;
+
+procedure TfrmPrincipal.btnServicoClick(Sender: TObject);
+begin
+  uViewServicoFinal.frmServico.ShowModal;
+end;
+
+procedure TfrmPrincipal.SpeedButton1Click(Sender: TObject);
+begin
+  uViewQuartoFinal.frmQuarto.ShowModal;
+end;
+
+procedure TfrmPrincipal.btnProdutoClick(Sender: TObject);
+begin
+  UViewProdutoFinal.frmProduto.ShowModal;
+end;
+
+end.

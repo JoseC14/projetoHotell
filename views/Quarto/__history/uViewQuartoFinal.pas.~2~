@@ -1,0 +1,29 @@
+unit uViewQuartoFinal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ExtCtrls;
+
+type
+  TfrmQuarto = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastrar1: TMenuItem;
+    Gerenciar1: TMenuItem;
+    Relatrio1: TMenuItem;
+    pTelaInterna: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmQuarto: TfrmQuarto;
+
+implementation
+
+{$R *.dfm}
+
+end.

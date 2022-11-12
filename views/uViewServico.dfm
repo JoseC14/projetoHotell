@@ -91,6 +91,8 @@ object Servico: TServico
     object TabSheet2: TTabSheet
       Caption = 'Gerenciar'
       ImageIndex = 1
+      ExplicitLeft = 8
+      ExplicitTop = 28
       object Label4: TLabel
         Left = 80
         Top = 59
@@ -118,7 +120,7 @@ object Servico: TServico
         ParentFont = False
       end
       object Label6: TLabel
-        Left = 597
+        Left = 381
         Top = 96
         Width = 30
         Height = 13
@@ -131,7 +133,7 @@ object Servico: TServico
         ParentFont = False
       end
       object Label7: TLabel
-        Left = 597
+        Left = 381
         Top = 141
         Width = 28
         Height = 13
@@ -177,8 +179,8 @@ object Servico: TServico
           'Pre'#231'o')
       end
       object tbservico: TDBGrid
-        Left = 312
-        Top = 95
+        Left = 80
+        Top = 96
         Width = 272
         Height = 342
         DataSource = dsServico
@@ -240,14 +242,14 @@ object Servico: TServico
         OnClick = btnAlterarClick
       end
       object txtEditNome: TEdit
-        Left = 599
+        Left = 383
         Top = 115
         Width = 160
         Height = 21
         TabOrder = 6
       end
       object txtEditPreco: TMaskEdit
-        Left = 597
+        Left = 381
         Top = 160
         Width = 120
         Height = 21
@@ -259,7 +261,6 @@ object Servico: TServico
     end
   end
   object Tb_servicosTable: TFDQuery
-    Active = True
     Connection = DataModule1.FDConexao
     SQL.Strings = (
       'SELECT * FROM db_syshotel.tb_servicos')

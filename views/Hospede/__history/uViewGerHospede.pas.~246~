@@ -1,0 +1,1183 @@
+unit uViewGerHospede;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, Datasnap.DBClient;
+
+type
+  TfrmGerHospede = class(TForm)
+    txtEditNome: TEdit;
+    txtEditIdade: TEdit;
+    IdadeEdit: TLabel;
+    txtEditProfissao: TEdit;
+    ProfissaoEdit: TLabel;
+    txtEditNacionalidade: TEdit;
+    nacionalidadeEdit: TLabel;
+    comEditSexo: TComboBox;
+    SexoEdit: TLabel;
+    txtEditCep: TMaskEdit;
+    CEPEdit: TLabel;
+    txtEditFone: TMaskEdit;
+    FoneEdit: TLabel;
+    txtEditCpf: TMaskEdit;
+    CPFEdit: TLabel;
+    NomeEdit: TLabel;
+    btnDeletar: TButton;
+    btnAlterar: TButton;
+    btnPesquisar: TButton;
+    txtPesquisa: TMaskEdit;
+    GerenciamentoHospede: TLabel;
+    comPesquisa: TComboBox;
+    Label4: TLabel;
+    tbhospede: TDBGrid;
+    Label1: TLabel;
+    comFilSexo: TComboBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    comFilIdade: TComboBox;
+    Tb_hospedeTable: TFDQuery;
+    dsHospede: TDataSource;
+    comFilNome: TComboBox;
+    btnLimparFIltro: TButton;
+    procedure tbhospedeCellClick(Column: TColumn);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnDeletarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure comFilSexoChange(Sender: TObject);
+    procedure comFilIdadeChange(Sender: TObject);
+    procedure comFilNomeChange(Sender: TObject);
+    procedure btnLimparFIltroClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGerHospede: TfrmGerHospede;
+
+implementation
+
+{$R *.dfm}
+
+uses uHospedeDao, uConexao;
+
+procedure TfrmGerHospede.btnAlterarClick(Sender: TObject);
+begin
+  HospedeDao:=THospedeDAO.Create(Self);
+try
+  HospedeDao.alterarHospede(txtEditNome.Text,txtEditCpf.Text,comEditSexo.Text,txtEditProfissao.Text,StrtoInt(txtEditIdade.Text),txtEditCep.Text,txtEditFone.Text,txtEditNacionalidade.Text,tbhospede.Fields[0].Value)  ;
+  tbhospede.DataSource.DataSet.Refresh;
+  except on E:Exception do
+begin
+  ShowMessage(E.Message);
+end;
+  end;
+  HospedeDao.Free;
+end;
+
+procedure TfrmGerHospede.btnDeletarClick(Sender: TObject);
+begin
+  HospedeDao:=THospedeDao.Create(Self);
+
+  if  Application.MessageBox('Deseja Realmente Deletar?','Atenção!', MB_OK+MB_OKCANCEL)=1 then
+  begin
+    HospedeDao.deletarHospede(tbhospede.Fields[0].Value);
+    HospedeDao.Free;
+  end;
+
+
+
+
+  tbhospede.DataSource.DataSet.Refresh;
+end;
+
+procedure TfrmGerHospede.btnLimparFIltroClick(Sender: TObject);
+begin
+ with Tb_hospedeTable do
+ begin
+   close;
+   sql.Clear;
+   sql.Add('SELECT * FROM tb_hospede');
+   Open;
+ end;
+
+ comFilSexo.ItemIndex  := 0;
+ comFilNome.ItemIndex  := 0;
+ comFilIdade.ItemIndex := 0;
+
+end;
+
+procedure TfrmGerHospede.btnPesquisarClick(Sender: TObject);
+begin
+    HospedeDao:=THospedeDAO.Create(Self);
+if comPesquisa.Text='Nome' then
+begin
+with Tb_hospedeTable do
+begin
+  close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'nome LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+
+else if comPesquisa.Text='CPF' then
+begin
+
+
+  with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'cpf LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='CEP' then
+begin
+  with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'cep LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Idade' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'idade LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Nacionalidade' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'nacionalidade LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Fone' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'fone LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+else if comPesquisa.Text='Sexo' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'sexo LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end
+ else if comPesquisa.Text='Profissão' then
+begin
+   with Tb_hospedeTable do
+begin
+       close;
+  sql.Clear;
+  sql.Add('SELECT * FROM tb_hospede WHERE '+'profissao LIKE ''%'+txtPesquisa.Text+'%''');
+  Open
+end;
+end;
+   tbhospede.DataSource.DataSet.Refresh;
+
+end;
+
+procedure TfrmGerHospede.comFilIdadeChange(Sender: TObject);
+begin
+  if comFilIdade.ItemIndex = 0 then
+begin
+  if (comFilSexo.ItemIndex = 0) OR (comFilSexo.Text = '') then
+  begin
+    with Tb_hospedeTable do
+   begin
+      Close;
+      sql.Clear;
+      sql.Add('SELECT * FROM tb_hospede ORDER by idade DESC');
+    end;
+  end
+  else
+  begin
+      with Tb_hospedeTable do
+   begin
+      Close;
+      sql.Clear;
+      sql.Add('SELECT * FROM tb_hospede WHERE sexo = '''+comFilSexo.Text+'ORDER BY idade  DESC');
+    end;
+  end;
+
+end
+  else if comFilIdade.ItemIndex = 1 then
+  begin
+
+
+  if (comFilSexo.ItemIndex = 0) OR (comFilSexo.Text = '') then
+begin
+    with Tb_hospedeTable do
+    begin
+      close;
+      sql.Clear;
+      sql.Add('SELECT * FROM tb_hospede ORDER BY idade ASC')
+    end;
+end
+  else
+begin
+     with Tb_hospedeTable do
+   begin
+      Close;
+      sql.Clear;
+      sql.Add('SELECT * FROM tb_hospede WHERE sexo = '''+comFilSexo.Text+'ORDER BY idade  DESC');
+    end;
+end;
+end;
+
+  Tb_hospedeTable.Open;
+
+end;
+
+
+
+procedure TfrmGerHospede.comFilNomeChange(Sender: TObject);
+begin
+   {if comFilNome.ItemIndex = 0 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 1 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' ORDER BY nome DESC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' ORDER BY nome DESC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede ORDER BY nome DESC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede ORDER BY nome DESC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 2 then
+  begin
+  if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''a%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''a%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''a%'' ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''a%'' ORDER BY nome ASC');
+    end;
+
+  end
+  else if comFilNome.ItemIndex = 3 then
+  begin
+     if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''b%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''b%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''b%'' ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''b%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 4 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''c%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''c%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''c%'' ORDER BY nome ASC');
+    end
+     else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''c%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 5 then
+  begin
+     if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''d%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''d%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''d%'' ORDER BY nome ASC');
+    end
+     else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''d%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 6 then
+  begin
+     if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''e%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''e%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''e%'' ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''e%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 7 then
+  begin
+     if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''f%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''f%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''f%'' ORDER BY nome ASC');
+    end
+     else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''f%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 8 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''f%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''f%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''g%'' ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''g%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 9 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''f%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''f%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''h%'' ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''h%'' ORDER BY nome ASC');
+    end;
+
+  end
+  else if comFilNome.ItemIndex = 10 then
+  begin
+     if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''i%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''i%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''i%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''i%'' ORDER BY nome ASC');
+    end;
+
+  end
+  else if comFilNome.ItemIndex = 11 then
+  begin
+      if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''j%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''j%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''j%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''j%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 12 then
+  begin
+    if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''k%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''k%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''k%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''k%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 13 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''l%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''l%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''l%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''l%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 14 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''m%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''m%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''m%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''m%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 15 then
+  begin
+  if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''n%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''n%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''n%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''n%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 16 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''o%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''o%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''o%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''o%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 17 then
+  begin
+ if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''p%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''p%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''p%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''p%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 18 then
+  begin
+  if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''q%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''q%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''q%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''q%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 19 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''r%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''r%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''r%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''r%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 20 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''s%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''s%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''s%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''s%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 21 then
+  begin
+  if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''t%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''t%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''t%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''t%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 22 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''u%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''u%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''u%''  ORDER BY nome ASC');
+    end
+    else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''u%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 23 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''v%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''v%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''v%''  ORDER BY nome ASC');
+    end
+     else
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''b%'' ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 24 then
+  begin
+  if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''w%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''w%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''w%''  ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 24 then
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''x%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''x%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''x%''  ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 25 then
+  begin
+ if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''y%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''y%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''y%''  ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 25 then
+
+  begin
+   if comFilSexo.ItemIndex = 0 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''z%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''z%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE nome LIKE ''z%''  ORDER BY nome ASC');
+    end;
+  end
+  else if comFilNome.ItemIndex = 26 then
+    begin
+        Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Masculino'' AND nome LIKE ''z%'' ORDER BY nome ASC');
+    end
+    else if comFilSexo.ItemIndex = 1 then
+    begin
+      Tb_hospedeTable.Close;
+      Tb_hospedeTable.SQL.Clear;
+      Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = ''Feminino'' AND nome LIKE ''z%'' ORDER BY nome ASC' )
+    end
+    else if comFilSexo.ItemIndex = 2 then
+    begin
+     Tb_hospedeTable.Close;
+     Tb_hospedeTable.SQL.Clear;
+     Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede   ORDER BY nome ASC');
+    end;
+
+ }
+  if comFilNome.ItemIndex = 1 then
+  begin
+    if (comFilSexo.Text = '') OR (comFilSexo.ItemIndex=1) then
+    begin
+       with Tb_hospedeTable do
+      begin
+        SQL.Clear;
+        SQL.Add('SELECT * FROM tb_hospede ORDER BY nome ASC');
+       Open;
+
+      end;
+    end
+    else
+    begin
+      with Tb_hospedeTable do
+      begin
+        SQL.Clear;
+        SQL.Add('SELECT * FROM tb_hospede WHERE sexo ='''+comFilSexo.Text+''''+
+          'ORDER BY nome ASC');
+       Open;
+
+      end;
+    end;
+  end
+  else if comFilNome.ItemIndex = 2 then
+  begin
+    if (comFilSexo.Text = '') OR (comFilSexo.ItemIndex = 1) then
+    begin
+       with Tb_hospedeTable do
+      begin
+        SQL.Clear;
+        SQL.Add('SELECT * FROM tb_hospede ORDER BY nome DESC');
+       Open;
+
+      end;
+    end
+    else
+    begin
+      with Tb_hospedeTable do
+      begin
+        SQL.Clear;
+        SQL.Add('SELECT * FROM tb_hospede WHERE sexo ='''+comFilSexo.Text+''''+
+          'ORDER BY nome DESC');
+       Open;
+
+      end;
+    end;
+  end
+  else
+  begin
+    with Tb_hospedeTable do
+ begin
+  SQL.Clear;
+  SQL.Add('SELECT * FROM tb_hospede WHERE sexo ='''+comFilSexo.Text+''''+
+          'AND nome LIKE '''+comFilNome.Text+'%''');
+  Open;
+
+ end;
+  end;
+
+
+end;
+
+procedure TfrmGerHospede.comFilSexoChange(Sender: TObject);
+begin
+if (comFilSexo.Text = '')  then
+begin
+  if (comFilNome.Text = '')  then
+  begin
+     with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede');
+    Tb_hospedeTable.Open;
+  end;
+  if comFilNome.ItemIndex = 1 then
+  begin
+       with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede ORDER BY nome ASC');
+    Tb_hospedeTable.Open;
+  end
+  else if comFilNome.ItemIndex = 2 then
+  begin
+      with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede ORDER BY nome DESC');
+    Tb_hospedeTable.Open;
+  end
+  else
+  begin
+    with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede nome LIKE '''+comFilNome.Text+'%''');
+    Tb_hospedeTable.Open;
+  end;
+
+end
+else
+begin
+
+  if comFilNome.ItemIndex = 1 then
+  begin
+    with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = '''+comFilSexo.Text+''' ORDER BY nome ASC');
+    Tb_hospedeTable.Open;
+  end
+  else if comFilNome.ItemIndex = 2 then
+  begin
+    with Tb_hospedeTable do
+    Tb_hospedeTable.Close;
+    Tb_hospedeTable.SQL.Clear;
+    Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = '''+comFilSexo.Text+''' ORDER BY nome DESC');
+    Tb_hospedeTable.Open;
+  end
+  else
+  begin
+  with Tb_hospedeTable do
+  Tb_hospedeTable.Close;
+  Tb_hospedeTable.SQL.Clear;
+  Tb_hospedeTable.SQL.Add('SELECT * FROM tb_hospede WHERE sexo = '''+comFilSexo.Text+''''+
+  'AND nome LIKE '''+comFilNome.Text+'%''');
+  Tb_hospedeTable.Open
+  end;
+
+
+end;
+end;
+
+procedure TfrmGerHospede.FormCreate(Sender: TObject);
+begin
+   Tb_hospedeTable.Open;
+
+   txtEditNome.Enabled          := False;
+   txtEditCpf.Enabled           := False;
+   txtEditFone.Enabled          := False;
+   txtEditCep.Enabled           := False;
+   comEditSexo.Enabled          := False;
+   txtEditNacionalidade.Enabled := False;
+   txtEditProfissao.Enabled     := False;
+   txtEditIdade.Enabled         := False;
+end;
+
+procedure TfrmGerHospede.tbhospedeCellClick(Column: TColumn);
+begin
+   txtEditNome.Text          := tbhospede.Fields[1].Value;
+   txtEditCpf.Text           := tbhospede.Fields[2].Value;
+   txtEditFone.Text          := tbhospede.Fields[7].Value;
+   txtEditCep.Text           := tbhospede.Fields[6].Value;
+   comEditSexo.Text          := tbhospede.Fields[3].Value;
+   txtEditNacionalidade.Text := tbhospede.Fields[8].Value;
+   txtEditProfissao.Text     := tbhospede.Fields[4].Value;
+   txtEditIdade.Text         := tbhospede.Fields[5].Value;
+
+   txtEditNome.Enabled          := True;
+   txtEditCpf.Enabled           := True;
+   txtEditFone.Enabled          := True;
+   txtEditCep.Enabled           := True;
+   comEditSexo.Enabled          := True;
+   txtEditNacionalidade.Enabled := True;
+   txtEditProfissao.Enabled     := True;
+   txtEditIdade.Enabled         := True;
+end;
+
+end.

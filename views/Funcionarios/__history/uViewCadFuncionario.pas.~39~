@@ -1,0 +1,68 @@
+unit uViewCadFuncionario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, uFuncionarioDao,
+  Vcl.ExtCtrls;
+
+type
+  TfrmCadFuncionario = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    txtNome: TEdit;
+    Label3: TLabel;
+    txtCpf: TMaskEdit;
+    Label6: TLabel;
+    txtDataAdmissao: TMaskEdit;
+    Label7: TLabel;
+    comGenero: TComboBox;
+    Label8: TLabel;
+    txtDataNascimento: TMaskEdit;
+    btnCadastrar: TButton;
+    txtSenha: TEdit;
+    Label10: TLabel;
+    txtUser: TEdit;
+    Label9: TLabel;
+    rgGerente: TRadioGroup;
+    procedure btnCadastrarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadFuncionario: TfrmCadFuncionario;
+  FuncionarioDao : TFuncionarioDao;
+
+implementation
+
+{$R *.dfm}
+
+uses uViewGerFuncionario;
+
+procedure TfrmCadFuncionario.btnCadastrarClick(Sender: TObject);
+begin
+   if (txtNome.Text<>'') AND (txtCpf.Text<>'') AND (txtDataAdmissao.Text<>'') AND (txtDataNascimento.Text<>'') AND (txtSenha.Text<>'') AND (txtUser.Text<>'') then
+   begin
+     FuncionarioDao := TFuncionarioDao.Create(Self);
+     FuncionarioDao.inserirFuncionario(txtDataAdmissao.Text, txtCpf.Text, txtNome.Text, comGenero.Text, txtDataNascimento.Text, txtUser.Text, txtSenha.Text,rgGerente.Items[rgGerente.ItemIndex]);
+     FuncionarioDao.Free;
+     ShowMessage('Funcionário Cadastrado');
+     uViewGerFuncionario.frmGerFuncionario.tbfuncionario.DataSource.DataSet.Refresh;
+     txtNome.Text           := '';
+     txtCpf.Text            := '';
+     txtDataAdmissao.Text   := '';
+     txtDataNascimento.Text := '';
+
+   end
+   else
+   begin
+     ShowMessage('Campos obrigatórios não preenchidos!')
+   end;
+
+end;
+
+end.

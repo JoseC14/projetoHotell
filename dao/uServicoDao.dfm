@@ -3,7 +3,7 @@ object ServicoDao: TServicoDao
   Height = 524
   Width = 734
   object sqlInserir: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'INSERT INTO tb_servicos (nome,preco) VALUES (:nome,:preco)')
     Left = 256
@@ -23,7 +23,7 @@ object ServicoDao: TServicoDao
       end>
   end
   object sqlAlterar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'UPDATE tb_servicos SET nome = :nome, preco = :preco WHERE id_ser' +
@@ -45,7 +45,7 @@ object ServicoDao: TServicoDao
       end>
   end
   object sqlDeletar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'DELETE FROM tb_servicos WHERE id_servicos = :id')
     Left = 384

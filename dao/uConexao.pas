@@ -11,23 +11,45 @@ uses
   FireDAC.Phys.MySQLDef, FireDAC.Comp.UI, Datasnap.DBClient;
 
 type
-  TDataModule1 = class(TDataModule)
+  TConexao = class(TDataModule)
     FDConexao: TFDConnection;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    sqlLogin: TFDQuery;
   private
     { Private declarations }
   public
     { Public declarations }
+    function Login(user,senha :String) : Boolean;
   end;
 
 var
-  DataModule1: TDataModule1;
+  Conexao: TConexao;
 
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
 {$R *.dfm}
+
+{ TDataModule1 }
+
+function TConexao.Login(user, senha: String): Boolean;
+begin
+  sqlLogin.Params[0].AsString := user;
+  sqlLogin.Params[1].AsString := senha;
+
+  sqlLogin.Open;
+
+  if sqlLogin.IsEmpty = True then
+  begin
+    Result := False
+  end
+  else
+  begin
+    Result := True;
+  end;
+
+end;
 
 end.

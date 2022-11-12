@@ -5,12 +5,12 @@ object HospedeDAO: THospedeDAO
   object sqlInserir: TFDQuery
     ConstraintsEnabled = True
     MasterFields = 'nome;cpf;sexo;profissao;idade;cep;fone;nacionalidade'
-    ConnectionName = 'ConexaoHotel'
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'INSERT INTO tb_hospede (nome,cpf,sexo,profissao,idade,cep,fone,n' +
-        'acionalidade) VALUES (:nome,:cpf,:sexo,:profissao,:idade,:cep,:f' +
-        'one,:nacionalidade)')
+        'acionalidade,datacadastro) VALUES (:nome,:cpf,:sexo,:profissao,:' +
+        'idade,:cep,:fone,:nacionalidade,:data)')
     Left = 296
     Top = 120
     ParamData = <
@@ -61,10 +61,14 @@ object HospedeDAO: THospedeDAO
         DataType = ftString
         ParamType = ptInput
         Value = Null
+      end
+      item
+        Name = 'DATA'
+        ParamType = ptInput
       end>
   end
   object sqlAlterar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'UPDATE  tb_hospede SET nome=:nome,cpf=:cpf,sexo=:sexo,profissao=' +
@@ -128,19 +132,8 @@ object HospedeDAO: THospedeDAO
         Value = Null
       end>
   end
-  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 208
-    Top = 232
-  end
-  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
-    VendorHome = 'C:\Users\josec\OneDrive\Documentos\livrariamysql'
-    VendorLib = 'libmysql.dll'
-    Left = 208
-    Top = 296
-  end
   object sqlDeletar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'DELETE FROM tb_hospede WHERE id_hospede=:id')
     Left = 416

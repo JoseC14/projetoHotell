@@ -1,0 +1,79 @@
+object RelatorioHospede: TRelatorioHospede
+  Left = 0
+  Top = 0
+  Caption = 'RelatorioHospede'
+  ClientHeight = 555
+  ClientWidth = 895
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Relatorio: TRLReport
+    Left = 0
+    Top = 0
+    Width = 794
+    Height = 1123
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Arial'
+    Font.Style = []
+    object Cabecalho: TRLBand
+      Left = 38
+      Top = 38
+      Width = 718
+      Height = 74
+      BandType = btHeader
+      object RLSystemInfo1: TRLSystemInfo
+        Left = 0
+        Top = 0
+        Width = 39
+        Height = 74
+        Align = faLeft
+        Text = ''
+      end
+      object RLSystemInfo2: TRLSystemInfo
+        Left = 679
+        Top = 0
+        Width = 39
+        Height = 74
+        Align = faRight
+        Info = itHour
+        Text = ''
+      end
+      object RLLabel1: TRLLabel
+        Left = 307
+        Top = 0
+        Width = 104
+        Height = 16
+        Align = faCenterTop
+        Caption = 'Sistema de Hotel'
+      end
+    end
+    object Titulo: TRLBand
+      Left = 38
+      Top = 112
+      Width = 718
+      Height = 16
+      BandType = btTitle
+    end
+    object Detalhe: TRLBand
+      Left = 38
+      Top = 128
+      Width = 718
+      Height = 16
+    end
+    object Footer: TRLBand
+      Left = 38
+      Top = 144
+      Width = 718
+      Height = 26
+      BandType = btFooter
+    end
+  end
+end

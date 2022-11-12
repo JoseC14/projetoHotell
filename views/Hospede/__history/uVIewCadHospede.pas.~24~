@@ -1,0 +1,110 @@
+unit uVIewCadHospede;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.Samples.Spin, uHospedeDao, HospedeDTO;
+
+type
+  TfrmCadHospede = class(TForm)
+    txtNome: TEdit;
+    Idade: TLabel;
+    intIdade: TSpinEdit;
+    Profissão: TLabel;
+    txtProfissao: TEdit;
+    Nacionalidade: TLabel;
+    txtNacionalidade: TEdit;
+    Sexo: TLabel;
+    comSexo: TComboBox;
+    CEP: TLabel;
+    txtCep: TMaskEdit;
+    Fone: TLabel;
+    txtFone: TMaskEdit;
+    txtCpf: TMaskEdit;
+    CPF: TLabel;
+    Nome: TLabel;
+    CadastroHospedes: TLabel;
+    btnCadastrar: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btnCadastrarClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+   function isCpf(CPF_Text: string): boolean;
+
+  end;
+
+var
+  frmCadHospede: TfrmCadHospede;
+  HospedeDaoObj:THospedeDAO;
+  HospedeDtoObj:THospedeDTO;
+  Hoje : TDateTime;
+
+
+implementation
+
+{$R *.dfm}
+
+uses uViewGerHospede;
+
+procedure TfrmCadHospede.btnCadastrarClick(Sender: TObject);
+begin
+  HospedeDaoObj               := THospedeDAO.Create(HospedeDAO);
+  HospedeDtoObj               := THospedeDTO.Create;
+  HospedeDtoObj.Nome          := txtNome.Text;
+  HospedeDtoObj.Cpf           := txtCpf.Text;
+  HospedeDtoObj.Cep           := txtCep.Text;
+  HospedeDtoObj.Fone          := txtFone.Text;
+  HospedeDtoObj.Sexo          := comSexo.Text;
+  HospedeDtoObj.Nacionalidade := txtNacionalidade.Text;
+  HospedeDtoObj.Profissao     := txtProfissao.Text;
+  HospedeDtoObj.Idade         := StrtoInt(intIdade.Text);
+
+try
+
+  Hoje := Now;
+  if (txtNome.Text = '') OR (txtCpf.Text = '') OR (txtCep.Text = '') OR (txtFone.Text = '') OR (txtProfissao.Text = '') OR (txtNacionalidade.Text = '' ) OR (comSexo.Text = '') then
+  begin
+    ShowMessage('Campos obrigatórios não preenchidos')
+  end
+  else
+  begin
+    HospedeDao.InserirHospede(HospedeDtoObj.Nome,HospedeDtoObj.Cpf,HospedeDtoObj.Sexo,HospedeDtoObj.Profissao,HospedeDtoObj.Idade,HospedeDtoObj.Cep,HospedeDtoObj.Fone,HospedeDtoObj.Nacionalidade, DatetoStr(Hoje));
+    txtNome.Text          := '';
+    txtCpf.Text           := '';
+    txtCep.Text           := '';
+    txtFone.Text          := '';
+    txtProfissao.Text     := '';
+    txtNacionalidade.Text := '';
+
+  ShowMessage('Hóspede Cadastrado');
+  HospedeDtoObj.Free;
+  HospedeDaoObj.Free;
+  uViewGerHospede.frmGerHospede.tbhospede.DataSource.DataSet.Refresh;
+  end;
+
+
+except on E:Exception do
+begin
+ShowMessage(E.Message);
+end;
+
+
+end;
+end;
+
+procedure TfrmCadHospede.FormCreate(Sender: TObject);
+var
+   h : HMenu;
+begin
+   h := getSystemMenu( Handle, FALSE );
+   DeleteMenu( h, 1, MF_BYPOSITION );
+
+end;
+
+
+
+
+end.

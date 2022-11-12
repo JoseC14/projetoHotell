@@ -14,8 +14,6 @@ type
   THospedeDAO = class(TDataModule)
     sqlInserir: TFDQuery;
     sqlAlterar: TFDQuery;
-    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
-    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
     sqlDeletar: TFDQuery;
   private
     { Private declarations }
@@ -23,7 +21,7 @@ type
   function pesquisarHospede(Coluna,Pesquisa:String):Boolean;
   procedure deletarHospede(Id:Integer);
   procedure alterarHospede(Nome:String;Cpf:String;Sexo:String;Profissao:String;Idade:Integer;Cep:String;Fone:String;Nacionalidade:String;Idhospede:Integer);
-  procedure InserirHospede(Nome:String;Cpf:String;Sexo:String;Profissao:String;Idade:Integer;Cep:String;Fone:String;Nacionalidade:String);
+  procedure InserirHospede(Nome:String;Cpf:String;Sexo:String;Profissao:String;Idade:Integer;Cep:String;Fone:String;Nacionalidade:String;Data:String);
     { Public declarations }
   end;
 
@@ -60,7 +58,7 @@ begin
 end;
 
 procedure THospedeDAO.InserirHospede(Nome, Cpf, Sexo, Profissao: String;
-  Idade: Integer; Cep, Fone, Nacionalidade: String);
+  Idade: Integer; Cep, Fone, Nacionalidade, Data:String);
 begin
   sqlInserir.Params[0].AsString  := Nome;
   sqlInserir.Params[1].AsString  := Cpf;
@@ -70,6 +68,7 @@ begin
   sqlInserir.Params[5].AsString  := Cep;
   sqlInserir.Params[6].AsString  := Fone;
   sqlInserir.Params[7].AsString  := Nacionalidade;
+  sqlInserir.Params[8].AsString  := Data;
 
    sqlInserir.ExecSQL;
 

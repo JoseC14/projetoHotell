@@ -1,4 +1,4 @@
-object Form9: TForm9
+object AdcProduto: TAdcProduto
   Left = 0
   Top = 0
   Caption = 'Adicionar Produto'

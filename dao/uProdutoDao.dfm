@@ -2,17 +2,8 @@ object ProdutoDao: TProdutoDao
   OldCreateOrder = False
   Height = 410
   Width = 734
-  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 208
-    Top = 272
-  end
-  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
-    Left = 264
-    Top = 272
-  end
   object sqlInserir: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'INSERT INTO tb_produto (nome,preco,quantidade) VALUES (:nome,:pr' +
@@ -40,7 +31,7 @@ object ProdutoDao: TProdutoDao
       end>
   end
   object sqlAlterar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'UPDATE tb_produto SET nome=:nome,preco=:preco,quantidade=:quanti' +
@@ -74,7 +65,7 @@ object ProdutoDao: TProdutoDao
       end>
   end
   object sqlDeletar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'DELETE FROM tb_produto WHERE id_produto = :id')
     Left = 344

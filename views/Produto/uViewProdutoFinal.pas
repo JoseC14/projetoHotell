@@ -15,6 +15,7 @@ type
     pTelaInterna: TPanel;
     procedure Cadastrat1Click(Sender: TObject);
     procedure Gerenciar1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +32,13 @@ implementation
 uses uViewCadProduto, uViewGerProduto;
 
 procedure TfrmProduto.Cadastrat1Click(Sender: TObject);
+begin
+  uViewCadProduto.frmCadProduto.Parent := pTelaInterna;
+  uViewCadProduto.frmCadProduto.Align  := AlClient;
+  uViewCadProduto.frmCadProduto.Show;
+end;
+
+procedure TfrmProduto.FormShow(Sender: TObject);
 begin
   uViewCadProduto.frmCadProduto.Parent := pTelaInterna;
   uViewCadProduto.frmCadProduto.Align  := AlClient;

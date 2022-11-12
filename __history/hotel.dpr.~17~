@@ -1,0 +1,64 @@
+program hotel;
+
+uses
+  Vcl.Forms,
+  uViewPrincipal in 'views\uViewPrincipal.pas' {Form2},
+  uViewGerReserva in 'views\uViewGerReserva.pas' {cadReserva},
+  uConexao in 'dao\uConexao.pas' {DataModule1: TDataModule},
+  uViewHospede in 'views\Hospede\uViewHospede.pas' {Hospede},
+  uViewCheckOut in 'views\uViewCheckOut.pas' {Form1},
+  uViewQuarto in 'views\uViewQuarto.pas' {Quarto},
+  uViewFuncionario in 'views\uViewFuncionario.pas' {Form7},
+  uVIewAdcServico in 'views\uVIewAdcServico.pas' {Form10},
+  HospedeDTO in 'dto\HospedeDTO.pas',
+  uHospedeDao in 'dao\uHospedeDao.pas' {HospedeDAO: TDataModule},
+  uProdutoDao in 'dao\uProdutoDao.pas' {ProdutoDao: TDataModule},
+  uQuartoDao in 'dao\uQuartoDao.pas' {QuartoDao: TDataModule},
+  uServicoDao in 'dao\uServicoDao.pas' {ServicoDao: TDataModule},
+  hospederelatorio in 'relatorios\hospederelatorio.pas' {RelatorioHospede},
+  uVIewCadHospede in 'views\Hospede\uVIewCadHospede.pas' {frmCadHospede},
+  uViewGerHospede in 'views\Hospede\uViewGerHospede.pas' {frmGerHospede},
+  uViewRelHospede in 'views\Hospede\uViewRelHospede.pas' {frmRelHospede},
+  uViewProdutoFinal in 'views\Produto\uViewProdutoFinal.pas' {frmProduto},
+  uViewCadProduto in 'views\Produto\uViewCadProduto.pas' {frmCadProduto},
+  uViewGerProduto in 'views\Produto\uViewGerProduto.pas' {frmGerProduto},
+  uViewServicoFinal in 'views\Servico\uViewServicoFinal.pas' {frmServico},
+  uViewCadServico in 'views\Servico\uViewCadServico.pas' {frmCadServico},
+  uViewHospedeFinal in 'views\Hospede\uViewHospedeFinal.pas' {frmHospede},
+  uViewGerServico in 'views\Servico\uViewGerServico.pas' {frmGerServico},
+  ProdutoReport in 'relatorios\ProdutoReport.pas' {ProdutoRel},
+  uViewQuartoFinal in 'views\Quarto\uViewQuartoFinal.pas' {frmQuarto},
+  uVIewCadQuarto in 'views\Quarto\uVIewCadQuarto.pas' {CadQuarto},
+  uViewGerQuarto in 'views\Quarto\uViewGerQuarto.pas' {GerQuarto};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TcadReserva, cadReserva);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.CreateForm(THospede, Hospede);
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TQuarto, Quarto);
+  Application.CreateForm(THospedeDAO, HospedeDAO);
+  Application.CreateForm(TProdutoDao, ProdutoDao);
+  Application.CreateForm(TQuartoDao, QuartoDao);
+  Application.CreateForm(TServicoDao, ServicoDao);
+  Application.CreateForm(TRelatorioHospede, RelatorioHospede);
+  Application.CreateForm(TfrmCadHospede, frmCadHospede);
+  Application.CreateForm(TfrmGerHospede, frmGerHospede);
+  Application.CreateForm(TfrmRelHospede, frmRelHospede);
+  Application.CreateForm(TfrmProduto, frmProduto);
+  Application.CreateForm(TfrmCadProduto, frmCadProduto);
+  Application.CreateForm(TfrmGerProduto, frmGerProduto);
+  Application.CreateForm(TfrmServico, frmServico);
+  Application.CreateForm(TfrmCadServico, frmCadServico);
+  Application.CreateForm(TfrmHospede, frmHospede);
+  Application.CreateForm(TfrmGerServico, frmGerServico);
+  Application.CreateForm(TProdutoRel, ProdutoRel);
+  Application.CreateForm(TfrmQuarto, frmQuarto);
+  Application.CreateForm(TCadQuarto, CadQuarto);
+  Application.CreateForm(TGerQuarto, GerQuarto);
+  Application.Run;
+end.

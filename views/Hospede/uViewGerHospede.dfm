@@ -1,17 +1,19 @@
 object frmGerHospede: TfrmGerHospede
   Left = 0
   Top = 0
+  Align = alClient
   BorderStyle = bsNone
   Caption = 'frmGerHospede'
   ClientHeight = 533
   ClientWidth = 1066
-  Color = clBtnFace
+  Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object IdadeEdit: TLabel
@@ -137,6 +139,45 @@ object frmGerHospede: TfrmGerHospede
     Width = 73
     Height = 13
     Caption = 'Pesquisar por:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 24
+    Top = 475
+    Width = 78
+    Height = 13
+    Caption = 'Filtrar por Sexo'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 272
+    Top = 475
+    Width = 84
+    Height = 13
+    Caption = 'Filtrar por Nome'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 525
+    Top = 475
+    Width = 83
+    Height = 13
+    Caption = 'Filtrar por idade'
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -282,7 +323,7 @@ object frmGerHospede: TfrmGerHospede
     Top = 96
     Width = 785
     Height = 342
-    DataSource = dshospede
+    DataSource = dsHospede
     FixedColor = clCream
     Options = [dgEditing, dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
@@ -346,24 +387,91 @@ object frmGerHospede: TfrmGerHospede
         Visible = True
       end>
   end
-  object cdshospede: TClientDataSet
-    Aggregates = <>
-    MasterSource = dshospede
-    PacketRecords = 0
-    Params = <>
-    Left = 32
-    Top = 16
+  object comFilSexo: TComboBox
+    Left = 108
+    Top = 472
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 14
+    OnChange = comFilSexoChange
+    Items.Strings = (
+      ''
+      'Masculino'
+      'Feminino')
+  end
+  object comFilIdade: TComboBox
+    Left = 614
+    Top = 472
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 15
+    OnChange = comFilIdadeChange
+    Items.Strings = (
+      ''
+      'Maior para Menor'
+      'Menor para Maior')
+  end
+  object comFilNome: TComboBox
+    Left = 362
+    Top = 472
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 16
+    OnChange = comFilNomeChange
+    Items.Strings = (
+      ''
+      'A-Z'
+      'Z-A'
+      'A'
+      'B'
+      'C'
+      'D'
+      'E'
+      'F'
+      'G'
+      'H'
+      'I'
+      'J'
+      'K'
+      'L'
+      'M'
+      'N'
+      'O'
+      'P'
+      'Q'
+      'R'
+      'S'
+      'T'
+      'U'
+      'V'
+      'W'
+      'X'
+      'Y'
+      'Z')
+  end
+  object btnLimparFIltro: TButton
+    Left = 794
+    Top = 470
+    Width = 141
+    Height = 25
+    Caption = 'Limpar Filtros'
+    TabOrder = 17
+    OnClick = btnLimparFIltroClick
   end
   object Tb_hospedeTable: TFDQuery
     Active = True
-    ConnectionName = 'ConexaoHotel'
+    Connection = Conexao.FDConexao
     SQL.Strings = (
-      'SELECT * FROM db_syshotel.tb_hospede')
-    Left = 60
-    Top = 15
+      'SELECT * FROM tb_hospede ORDER BY nome ASC')
+    Left = 41
+    Top = 22
   end
-  object dshospede: TDataSource
+  object dsHospede: TDataSource
     DataSet = Tb_hospedeTable
+    Left = 152
     Top = 16
   end
 end

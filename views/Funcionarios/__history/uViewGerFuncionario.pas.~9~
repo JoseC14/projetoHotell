@@ -1,0 +1,54 @@
+unit uViewGerFuncionario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.Mask, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client, uFuncionarioDao;
+
+type
+  TfrmGerFuncionario = class(TForm)
+    Edit7: TEdit;
+    Label17: TLabel;
+    Edit6: TEdit;
+    Label16: TLabel;
+    MaskEdit6: TMaskEdit;
+    Label15: TLabel;
+    ComboBox3: TComboBox;
+    Label14: TLabel;
+    MaskEdit5: TMaskEdit;
+    Label13: TLabel;
+    MaskEdit4: TMaskEdit;
+    Label12: TLabel;
+    Edit5: TEdit;
+    Label11: TLabel;
+    Label4: TLabel;
+    ComboBox1: TComboBox;
+    Edit1: TEdit;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Label5: TLabel;
+    tbfuncionario: TDBGrid;
+    Tb_funcionarioTable: TFDQuery;
+    dsFuncionario: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGerFuncionario: TfrmGerFuncionario;
+
+implementation
+
+{$R *.dfm}
+
+uses uConexao;
+
+end.

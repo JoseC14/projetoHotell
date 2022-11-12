@@ -5,18 +5,19 @@ object frmGerProduto: TfrmGerProduto
   Caption = 'frmGerProduto'
   ClientHeight = 536
   ClientWidth = 1066
-  Color = clBtnFace
+  Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Label5: TLabel
-    Left = 296
-    Top = 3
+    Left = 80
+    Top = 8
     Width = 321
     Height = 32
     Caption = 'Gerenciamento de Produtos'
@@ -41,8 +42,8 @@ object frmGerProduto: TfrmGerProduto
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 661
-    Top = 95
+    Left = 453
+    Top = 135
     Width = 30
     Height = 13
     Caption = 'Nome'
@@ -54,8 +55,8 @@ object frmGerProduto: TfrmGerProduto
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 663
-    Top = 141
+    Left = 455
+    Top = 181
     Width = 28
     Height = 13
     Caption = 'Pre'#231'o'
@@ -67,11 +68,32 @@ object frmGerProduto: TfrmGerProduto
     ParentFont = False
   end
   object Label9: TLabel
-    Left = 661
-    Top = 187
+    Left = 455
+    Top = 227
     Width = 56
     Height = 13
     Caption = 'Quantidade'
+  end
+  object Label1: TLabel
+    Left = 16
+    Top = 456
+    Width = 77
+    Height = 13
+    Caption = 'Filtrar por pre'#231'o'
+  end
+  object Label2: TLabel
+    Left = 267
+    Top = 456
+    Width = 76
+    Height = 13
+    Caption = 'Filtrar por nome'
+  end
+  object Label3: TLabel
+    Left = 519
+    Top = 456
+    Width = 104
+    Height = 13
+    Caption = 'Filtrar por quantidade'
   end
   object comPesquisa: TComboBox
     Left = 159
@@ -138,15 +160,15 @@ object frmGerProduto: TfrmGerProduto
     OnClick = btnDeletarClick
   end
   object txtEditNome: TEdit
-    Left = 663
-    Top = 114
+    Left = 455
+    Top = 154
     Width = 159
     Height = 21
     TabOrder = 5
   end
   object txtEditPreco: TMaskEdit
-    Left = 663
-    Top = 160
+    Left = 455
+    Top = 200
     Width = 120
     Height = 21
     EditMask = '###.##;1;_'
@@ -155,8 +177,8 @@ object frmGerProduto: TfrmGerProduto
     Text = '   .  '
   end
   object txtEditQuantidade: TSpinEdit
-    Left = 661
-    Top = 206
+    Left = 455
+    Top = 246
     Width = 121
     Height = 22
     MaxValue = 0
@@ -165,8 +187,8 @@ object frmGerProduto: TfrmGerProduto
     Value = 0
   end
   object tbproduto: TDBGrid
-    Left = 245
-    Top = 100
+    Left = 80
+    Top = 95
     Width = 353
     Height = 342
     DataSource = dsProduto
@@ -200,18 +222,91 @@ object frmGerProduto: TfrmGerProduto
         Visible = True
       end>
   end
-  object dsProduto: TDataSource
-    AutoEdit = False
-    DataSet = Tb_produtoTable
-    Left = 140
-    Top = 12
+  object comFilPreco: TComboBox
+    Left = 99
+    Top = 453
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 9
+    OnChange = comFilPrecoChange
+    Items.Strings = (
+      ''
+      'Maior para Menor'
+      'Menor para Maior')
+  end
+  object comFilNome: TComboBox
+    Left = 349
+    Top = 453
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 10
+    OnChange = comFilNomeChange
+    Items.Strings = (
+      ''
+      'A-Z'
+      'Z-A'
+      'A'
+      'B'
+      'C'
+      'D'
+      'E'
+      'F'
+      'G'
+      'H'
+      'I'
+      'J'
+      'K'
+      'L'
+      'M'
+      'N'
+      'O'
+      'P'
+      'Q'
+      'R'
+      'S'
+      'T'
+      'U'
+      'V'
+      'W'
+      'X'
+      'Y'
+      'Z')
+  end
+  object comFilQuant: TComboBox
+    Left = 629
+    Top = 453
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 11
+    OnChange = comFilQuantChange
+    Items.Strings = (
+      ''
+      'Maior para Menor'
+      'Menor para Maior')
+  end
+  object btnLimparFIltro: TButton
+    Left = 810
+    Top = 451
+    Width = 141
+    Height = 25
+    Caption = 'Limpar Filtros'
+    TabOrder = 12
+    OnClick = btnLimparFIltroClick
   end
   object Tb_produtoTable: TFDQuery
     Active = True
-    ConnectionName = 'ConexaoHotel'
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'SELECT * FROM db_syshotel.tb_produto')
-    Left = 69
-    Top = 12
+    Left = 30
+    Top = 159
+  end
+  object dsProduto: TDataSource
+    DataSet = Tb_produtoTable
+    Left = 32
+    Top = 240
   end
 end

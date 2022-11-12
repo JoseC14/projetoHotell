@@ -1,0 +1,246 @@
+object GerQuarto: TGerQuarto
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  Caption = 'GerQuarto'
+  ClientHeight = 555
+  ClientWidth = 1066
+  Color = clGradientActiveCaption
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label7: TLabel
+    Left = 392
+    Top = 157
+    Width = 97
+    Height = 13
+    Caption = 'N'#250'mero do Quarto'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 392
+    Top = 104
+    Width = 78
+    Height = 13
+    Caption = 'Tipo de Quarto'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 80
+    Top = 59
+    Width = 73
+    Height = 13
+    Caption = 'Pesquisar por:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 296
+    Top = 3
+    Width = 308
+    Height = 32
+    Caption = 'Gerenciamento de Quartos'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -24
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 104
+    Top = 480
+    Width = 86
+    Height = 13
+    Caption = 'Filtrar por n'#250'mero'
+  end
+  object Label2: TLabel
+    Left = 376
+    Top = 480
+    Width = 118
+    Height = 13
+    Caption = 'Filtrar por tipo de quarto'
+  end
+  object tbquarto: TDBGrid
+    Left = 80
+    Top = 107
+    Width = 280
+    Height = 342
+    DataSource = dsQuarto
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnCellClick = tbquartoCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id_quarto'
+        Visible = False
+      end
+      item
+        Expanded = False
+        FieldName = 'numero'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'tipo'
+        Width = 243
+        Visible = True
+      end>
+  end
+  object comEditQuarto: TComboBox
+    Left = 392
+    Top = 123
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 1
+    Items.Strings = (
+      'Solteiro Standard'
+      'Solteiro Master'
+      'Solteiro Deluxe'
+      'Casal Standard'
+      'Casal Master'
+      'Casal Deluxe')
+  end
+  object Deletar: TButton
+    Left = 680
+    Top = 54
+    Width = 75
+    Height = 25
+    Caption = 'Deletar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = DeletarClick
+  end
+  object Alterar: TButton
+    Left = 599
+    Top = 54
+    Width = 75
+    Height = 25
+    Caption = 'Alterar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = AlterarClick
+  end
+  object Pesquisar: TButton
+    Left = 518
+    Top = 54
+    Width = 75
+    Height = 25
+    Caption = 'Pesquisar'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    OnClick = PesquisarClick
+  end
+  object txtPesquisa: TEdit
+    Left = 327
+    Top = 56
+    Width = 185
+    Height = 21
+    TabOrder = 5
+  end
+  object comPesquisa: TComboBox
+    Left = 159
+    Top = 56
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 6
+    Items.Strings = (
+      'N'#250'mero'
+      'Tipo')
+  end
+  object intEditNumero: TSpinEdit
+    Left = 392
+    Top = 176
+    Width = 121
+    Height = 22
+    MaxValue = 0
+    MinValue = 0
+    TabOrder = 7
+    Value = 0
+  end
+  object comFilNumero: TComboBox
+    Left = 196
+    Top = 477
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 8
+    OnChange = comFilNumeroChange
+    Items.Strings = (
+      ''
+      'Maior para o Menor'
+      'Menor para o Maior')
+  end
+  object comFilQuarto: TComboBox
+    Left = 500
+    Top = 477
+    Width = 145
+    Height = 21
+    Style = csDropDownList
+    TabOrder = 9
+    OnChange = comFilQuartoChange
+    Items.Strings = (
+      ''
+      'Solteiro Standard'
+      'Solteiro Master'
+      'Solteiro Deluxe'
+      'Casal Standard'
+      'Casal Master'
+      'Casal Deluxe')
+  end
+  object Tb_quartoTable: TFDQuery
+    Active = True
+    Connection = DataModule1.FDConexao
+    SQL.Strings = (
+      'SELECT * FROM db_syshotel.tb_quarto')
+    Left = 597
+    Top = 133
+  end
+  object dsQuarto: TDataSource
+    DataSet = Tb_quartoTable
+    Left = 592
+    Top = 208
+  end
+end

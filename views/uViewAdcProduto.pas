@@ -8,7 +8,7 @@ uses
   Vcl.DBGrids;
 
 type
-  TForm9 = class(TForm)
+  TAdcProduto = class(TForm)
     Label5: TLabel;
     ComboBox1: TComboBox;
     Label4: TLabel;
@@ -22,7 +22,7 @@ type
   end;
 
 var
-  Form9: TForm9;
+  AdcProduto: TAdcProduto;
 
 implementation
 

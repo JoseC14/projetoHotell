@@ -18,12 +18,12 @@ object Form7: TForm7
     Top = -4
     Width = 1161
     Height = 481
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Cadastrar'
       object Label1: TLabel
-        Left = 360
+        Left = 32
         Top = 24
         Width = 290
         Height = 32
@@ -127,8 +127,8 @@ object Form7: TForm7
         ParentFont = False
       end
       object Button1: TButton
-        Left = 558
-        Top = 400
+        Left = 32
+        Top = 392
         Width = 139
         Height = 41
         Caption = 'Cadastrar'
@@ -390,26 +390,12 @@ object Form7: TForm7
         ParentFont = False
         TabOrder = 5
       end
-      object Button5: TButton
-        Left = 566
-        Top = 32
-        Width = 139
-        Height = 25
-        Caption = 'Visualizar Funcionario'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 6
-      end
       object Edit5: TEdit
         Left = 880
         Top = 99
         Width = 222
         Height = 21
-        TabOrder = 7
+        TabOrder = 6
       end
       object MaskEdit4: TMaskEdit
         Left = 880
@@ -418,7 +404,7 @@ object Form7: TForm7
         Height = 21
         EditMask = '###.###.###-##;1;_'
         MaxLength = 14
-        TabOrder = 8
+        TabOrder = 7
         Text = '   .   .   -  '
       end
       object MaskEdit5: TMaskEdit
@@ -428,7 +414,7 @@ object Form7: TForm7
         Height = 21
         EditMask = '##/##/####;1;_'
         MaxLength = 10
-        TabOrder = 9
+        TabOrder = 8
         Text = '  /  /    '
       end
       object ComboBox3: TComboBox
@@ -437,7 +423,7 @@ object Form7: TForm7
         Width = 144
         Height = 21
         Style = csDropDownList
-        TabOrder = 10
+        TabOrder = 9
         Items.Strings = (
           'Masculino '
           'Feminino'
@@ -450,7 +436,7 @@ object Form7: TForm7
         Height = 21
         EditMask = '##/##/####;1;_'
         MaxLength = 10
-        TabOrder = 11
+        TabOrder = 10
         Text = '  /  /    '
       end
       object Edit6: TEdit
@@ -458,14 +444,14 @@ object Form7: TForm7
         Top = 366
         Width = 241
         Height = 21
-        TabOrder = 12
+        TabOrder = 11
       end
       object Edit7: TEdit
         Left = 880
         Top = 419
         Width = 241
         Height = 21
-        TabOrder = 13
+        TabOrder = 12
       end
     end
   end

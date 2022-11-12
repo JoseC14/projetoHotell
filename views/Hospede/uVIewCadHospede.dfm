@@ -1,11 +1,12 @@
 ﻿object frmCadHospede: TfrmCadHospede
   Left = 0
   Top = 0
+  Align = alClient
   BorderStyle = bsNone
   Caption = 'frmCadHospede'
   ClientHeight = 564
-  ClientWidth = 884
-  Color = clBtnFace
+  ClientWidth = 677
+  Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -22,7 +23,7 @@
     Height = 13
     Caption = 'Idade'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
@@ -35,7 +36,7 @@
     Height = 13
     Caption = 'Profiss'#227'o'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
@@ -61,7 +62,7 @@
     Height = 13
     Caption = 'Sexo'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
@@ -100,7 +101,7 @@
     Height = 13
     Caption = 'CPF'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
@@ -113,7 +114,7 @@
     Height = 13
     Caption = 'Nome'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Segoe UI'
     Font.Style = []
@@ -126,7 +127,7 @@
     Height = 32
     Caption = 'Cadastro de H'#243'spedes'
     Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
+    Font.Color = clBlack
     Font.Height = -24
     Font.Name = 'Segoe UI'
     Font.Style = [fsBold]

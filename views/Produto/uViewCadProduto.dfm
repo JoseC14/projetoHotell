@@ -5,7 +5,7 @@ object frmCadProduto: TfrmCadProduto
   Caption = 'frmCadProduto'
   ClientHeight = 536
   ClientWidth = 1066
-  Color = clBtnFace
+  Color = clGradientActiveCaption
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -88,8 +88,8 @@ object frmCadProduto: TfrmCadProduto
     Value = 0
   end
   object Button1: TButton
-    Left = 117
-    Top = 384
+    Left = 32
+    Top = 376
     Width = 139
     Height = 41
     Caption = 'Cadastrar'

@@ -3,7 +3,7 @@ object QuartoDao: TQuartoDao
   Height = 430
   Width = 747
   object sqlInserir: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'INSERT INTO tb_quarto (numero,tipo) VALUES (:numero,:tipo)')
     Left = 256
@@ -23,7 +23,7 @@ object QuartoDao: TQuartoDao
       end>
   end
   object sqlAlterar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       
         'UPDATE tb_quarto SET numero = :numero, tipo = :tipo WHERE id_qua' +
@@ -51,7 +51,7 @@ object QuartoDao: TQuartoDao
       end>
   end
   object sqlDeletar: TFDQuery
-    Connection = DataModule1.FDConexao
+    Connection = Conexao.FDConexao
     SQL.Strings = (
       'DELETE FROM tb_quarto WHERE id_quarto = :id')
     Left = 376

@@ -1,6 +1,7 @@
 object frmProduto: TfrmProduto
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
   Caption = 'Produtos'
   ClientHeight = 496
   ClientWidth = 1050
@@ -12,20 +13,22 @@ object frmProduto: TfrmProduto
   Font.Style = []
   Menu = MainMenu1
   OldCreateOrder = False
+  Position = poDesktopCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pTelaInterna: TPanel
     Left = 0
-    Top = 0
+    Top = -1
     Width = 1049
-    Height = 489
+    Height = 498
     TabOrder = 0
   end
   object MainMenu1: TMainMenu
     Left = 296
     Top = 168
     object Cadastrat1: TMenuItem
-      Caption = 'Cadastrat'
+      Caption = 'Cadastrar'
       OnClick = Cadastrat1Click
     end
     object Gerenciar1: TMenuItem

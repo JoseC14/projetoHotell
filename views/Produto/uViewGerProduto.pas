@@ -26,12 +26,24 @@ type
     Label9: TLabel;
     txtEditQuantidade: TSpinEdit;
     tbproduto: TDBGrid;
-    dsProduto: TDataSource;
     Tb_produtoTable: TFDQuery;
+    dsProduto: TDataSource;
+    Label1: TLabel;
+    comFilPreco: TComboBox;
+    Label2: TLabel;
+    comFilNome: TComboBox;
+    Label3: TLabel;
+    comFilQuant: TComboBox;
+    btnLimparFIltro: TButton;
     procedure tbprodutoCellClick(Column: TColumn);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnDeletarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure comFilPrecoChange(Sender: TObject);
+    procedure comFilNomeChange(Sender: TObject);
+    procedure comFilQuantChange(Sender: TObject);
+    procedure btnLimparFIltroClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +57,7 @@ implementation
 
 {$R *.dfm}
 
-uses uProdutoDao;
+uses uProdutoDao, uConexao;
 
 procedure TfrmGerProduto.btnAlterarClick(Sender: TObject);
 begin
@@ -82,6 +94,14 @@ begin
 end;
 end;
 
+procedure TfrmGerProduto.btnLimparFIltroClick(Sender: TObject);
+begin
+  comFilPreco.ItemIndex := 0;
+  comFilNome.ItemIndex  := 0;
+  comFilQuant.ItemIndex := 0;
+  Tb_produtoTable.Open('SELECT * FROM tb_produto');
+end;
+
 procedure TfrmGerProduto.btnPesquisarClick(Sender: TObject);
 begin
   if comPesquisa.Text = 'Nome' then
@@ -112,11 +132,83 @@ end
 
 end;
 
+procedure TfrmGerProduto.comFilQuantChange(Sender: TObject);
+begin
+   if comFilQuant.ItemIndex = 1 then
+   begin
+     Tb_produtoTable.Open('SELECT * FROM tb_produto ORDER BY preco DESC');
+   end
+   else if comFilQuant.ItemIndex = 2 then
+   begin
+     Tb_produtoTable.Open('SELECT * FROM tb_produto ORDER BY preco ASC');
+   end;
+   comFilNome.ItemIndex  := 0;
+   comFilPreco.ItemIndex := 0;
+end;
+
+procedure TfrmGerProduto.comFilNomeChange(Sender: TObject);
+begin
+    if comFilNome.ItemIndex = 1 then
+    begin
+      Tb_produtoTable.Open('SELECT * FROM tb_produto ORDER BY nome ASC');
+    end
+    else if comFilNome.ItemIndex = 2 then
+    begin
+      Tb_produtoTable.Open('SELECT * FROM tb_produto ORDER BY nome DESC');
+    end
+    else
+    begin
+      Tb_produtoTable.Open('SELECT * FROM tb_produto WHERE nome LIKE '''+comFilNome.Text+'%''');
+    end;
+
+    comFilPreco.ItemIndex := 0;
+    comFilQuant.ItemIndex := 0;
+
+end;
+
+procedure TfrmGerProduto.comFilPrecoChange(Sender: TObject);
+begin
+  if comFilPreco.ItemIndex = 1 then
+  begin
+   with Tb_produtoTable do
+  begin
+    close;
+    sql.Clear;
+    sql.Add('SELECT * FROM tb_produto ORDER BY preco DESC');
+  end;
+  end
+  else if comFilPreco.ItemIndex = 2 then
+  begin
+   with Tb_produtoTable do
+  begin
+    close;
+    sql.Clear;
+    sql.Add('SELECT * FROM tb_produto ORDER BY preco ASC');
+  end;
+  end;
+  Tb_produtoTable.Open;
+
+  comFilNome.ItemIndex  := 0;
+  comFilQuant.ItemIndex := 0;
+
+end;
+
+procedure TfrmGerProduto.FormCreate(Sender: TObject);
+begin
+  txtEditPreco.Enabled      := False;
+  txtEditNome.Enabled       := False;
+  txtEditQuantidade.Enabled := False;
+end;
+
 procedure TfrmGerProduto.tbprodutoCellClick(Column: TColumn);
 begin
   txtEditPreco.Text      := tbproduto.Fields[1].Value;
   txtEditNome.Text       := tbproduto.Fields[2].Value;
   txtEditQuantidade.Text := tbproduto.Fields[3].Value;
+   txtEditPreco.Enabled     := True;
+  txtEditNome.Enabled       := True;
+  txtEditQuantidade.Enabled := True;
+
 end;
 
 end.
